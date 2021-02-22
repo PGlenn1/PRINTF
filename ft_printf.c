@@ -15,7 +15,7 @@ void    ft_printf(char *format, ...)
     {
         while(*traverse != '%')
         {
-            ft_putchar_fd(i, 1);
+            ft_putchar_fd(*traverse, 1);
             traverse++;
         }
         traverse++;
@@ -48,7 +48,7 @@ int     main()
     int a;
 
     a = 9;
-    printf("j'adore le chiffre %d", a);
+    printf("j'adore le chiffre %d\n", a);
     ft_printf("J'adore le chiffre %d", a);
     return (0);
 }
