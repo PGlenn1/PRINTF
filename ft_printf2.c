@@ -5,40 +5,46 @@
 void    ft_printf(char *format, ...)
 {
     char *traverse;
+    char *s;
     unsigned int i;
-   // char *s;
     va_list arg;
     va_start(arg, format);
 
     i = 0;
-    for(traverse = format; *traverse != '\0'; traverse++)
+    traverse = format;
+    while (*traverse)
     {
-        while(*traverse != '%')
+        while (*traverse && *traverse != '%')
         {
             ft_putchar_fd(*traverse, 1);
             traverse++;
         }
-        traverse++;
-
-        if (*traverse)
+        if (*traverse == '%')
         {
+            traverse++;
+
             if (*traverse == 'c')
             {
                 i = va_arg(arg, int);
                 ft_putchar_fd(i, 1);
-                break;
             }
-            else if (*traverse == 'd') ///// PUTNBR BASE 10
+            else if (*traverse == 'd' && *traverse == 'i')
             {
                 i = va_arg(arg, int);
-                if(i<0)
+                if (i < 0)
                 {
                     i = -i;
                     ft_putchar_fd('-', 1);
                 }
                 ft_putnbr_fd(i, 1);
-                break;
             }
+            else if (*traverse == 's')
+            {
+                s = va_arg(arg, char *);
+                ft_putstr_fd(s, 1);
+            }
+            traverse++;
+            continue;
         }
     }
     va_end(arg);
@@ -48,10 +54,11 @@ int     main()
 {
     char a;
     int b;
+    char *c;
 
-    a = 68;
+    a = 'D';
     b = 15;
-    printf("j'adore le chiffre %c, essayons %d\n", a, b);
-    ft_printf("J'adore le chiffre %c, essayons %d", a, b);
+    c = "PROUT";
+    ft_printf("FT_PRINTF: J'adore la lettre %c, essayons le chiffre %d\nMaintenant, essayons la string %s\n", a, b, c);
     return (0);
 }
