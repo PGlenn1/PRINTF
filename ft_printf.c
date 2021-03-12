@@ -39,23 +39,31 @@ int	valid_format(char *str, struct x_list *params)
 		return (0);
 }
 
-int	p_zero_padding(char *str, struct x_list *params, va_list arg, char *format)
+int	p_precision(char *str, struct x_list *params, va_list arg)
+{
+	str++;
+	if (valid_format(str, params))
+		return (1);
+	return (0);
+}
+
+int	p_zero_padding(char *str, struct x_list *params, va_list arg)
 {
 	str++;
 	if (*str == '*')
 	{
-		params->width = va_arg(arg, format);
-		p_width(str, params, arg, format);
+		params->width = va_arg(arg, int);
+		p_width(str, params, arg);
 	}
 	else if (ft_isdigit(*str))
 	{
 		params->width = ft_atoi(str);
-		p_width(str, params, arg, format);
+		p_width(str, params, arg);
 	}
 	else if (*str == '.')
 	{
 		params->dot = 1;
-		p_dot(str, params, arg, format);
+		p_dot(str, params, arg);
 	}
 	else if (valid_format(str, params));
 	else
@@ -63,13 +71,13 @@ int	p_zero_padding(char *str, struct x_list *params, va_list arg, char *format)
 	return (1);
 }
 
-int	p_dot(char *str, struct x_list *params, va_list arg, char *format)
+int	p_dot(char *str, struct x_list *params, va_list arg)
 {
 	str++;
 	if (*str == '*')
 	{
-		params->precision = va_arg(arg, format);
-		p_precision(str, params, arg, format);
+		params->precision = va_arg(arg, int);
+		p_precision(str, params, arg);
 	}
 	else if (ft_isdigit(*str))
 		params->precision = ft_atoi(str);
@@ -79,13 +87,13 @@ int	p_dot(char *str, struct x_list *params, va_list arg, char *format)
 	return (1);
 }
 
-int	p_width(char *str, struct x_list *params, va_list arg, char *format)
+int	p_width(char *str, struct x_list *params, va_list arg)
 {
 	str++;
 	if (*str == '.')
 	{
 		params->dot = 1;
-		p_dot(str, params, arg, format);
+		p_dot(str, params, arg);
 	}
 	else if (valid_format(str, params));
 	else
@@ -93,31 +101,23 @@ int	p_width(char *str, struct x_list *params, va_list arg, char *format)
 	return (1);
 }
 
-int	p_precison(char *str, struct x_list *params, va_list arg, char *format)
-{
-	str++;
-	if (valid_format(str, params))
-		return (1);
-	return (0);
-}
-
-int	p_minus(char *str, struct x_list *params, va_list arg, char *format)
+int	p_minus(char *str, struct x_list *params, va_list arg)
 {
 	str++;
 	if (ft_isdigit(*str))
 	{
 		params->width = ft_atoi(str);
-		p_width(str, params, arg, format);
+		p_width(str, params, arg);
 	}
 	else if (*str == '*')
 	{
-		params->width = va_arg(arg, format);
-		p_width(str, params, arg, format);
+		params->width = va_arg(arg, int);
+		p_width(str, params, arg);
 	}
 	else if (*str == '.')
 	{
 		params->dot = 1;
-		p_dot(str, params, arg, format);
+		p_dot(str, params, arg);
 	}
 	else if (valid_format(str, params));
 	else
@@ -126,35 +126,35 @@ int	p_minus(char *str, struct x_list *params, va_list arg, char *format)
 }
 
 
-int	parsing(char *str, struct x_list *params, va_list arg, char *format)
+int	parsing(char *str, struct x_list *params, va_list arg)
 {
 	if (*str == '%')
 		params->format = '%';
 	else if (*str == '0')
 	{
 		params->zero_padding = 1;
-		p_zero_padding(str, params, arg, format);
+		p_zero_padding(str, params, arg);
 	}
 	else if (*str == '-')
 	{
 		params->minus = 1;
 		params->zero_padding = 0; // OR ERROR ??
-		p_minus(str, params, arg, format);
+		p_minus(str, params, arg);
 	}
 	else if (ft_isdigit(*str))
 	{
 		params->width = ft_atoi(str);	
-		p_width(str, params, arg, format);
+		p_width(str, params, arg);
 	}
 	else if (*str == '*')
 	{
-		params->width = va_arg(arg, format);
-		p_width(str, params, arg, format);
+		params->width = va_arg(arg, int);
+		p_width(str, params, arg);
 	}
 	else if (*str == '.')
 	{
 		params->dot = 1;
-		p_dot(str, params, arg, format);
+		p_dot(str, params, arg);
 	}
 	else if (valid_format(str, params));
 	else
@@ -196,7 +196,7 @@ int		ft_printf(char *format, ...)
 		if (*parse == '%')
 		{
 			parse++;		
-			if (!parsing(parse, params, arg, format))
+			if (!parsing(parse, params, arg))
 				return (0);
 		}
 		parse++;
