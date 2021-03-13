@@ -21,9 +21,47 @@ void	init_struct(struct x_list *params)
 	params->format = '0';
 }
 
+int		find_format(struct x_list *params, va_list arg)
+{
+	if (params->format == 'd')
+		print_d(params, arg);
+	else if (params->format == 'c')
+		print_c(params, arg);
+	else if (params->format == 's')
+		print_s(params, arg);
+	else if (params->format == 'u')
+		print_u(params, arg);
+	else if (params->format == 'p')
+		print_p(params, arg);
+	else if (params->format == 'x')
+		print_x(params, arg);
+	else if (params->format == 'X')
+		print_X(params, arg);
+	else if (params->format == '%')
+		ft_putchar_fd('%', 1);
+	else
+		return (0);
+	return (1);
+}
+
+int		print_d(struct x_list *params, va_list arg)
+{
+	int n;
+	char padding;
+
+	n = va_arg(arg, int);
+	padding = ' ';
+	if (params->minus == 1 && params->zero_padding == 1)
+			return (0);
+	else if (params->zero_padding == 1)
+		padding = '0';
+	
+
+}
+
 int	valid_format(char *str, struct x_list *params)
 {
-	printf("VALIDFORMAT:|%s|\n", str);
+	//printf("VALIDFORMAT:|%s|\n", str);
 	if (*str == 'd'
 			|| *str == 'c'
 			|| *str == 's'
@@ -150,7 +188,7 @@ int	parsing(char *str, struct x_list *params, va_list arg)
 	else if (*str == '-')
 	{
 		params->minus = 1;
-		params->zero_padding = 0; // OR ERROR ??
+		//params->zero_padding = 0; // OR ERROR ??
 		p_minus(str, params, arg);
 	}
 	else if (ft_isdigit(*str))
@@ -199,22 +237,19 @@ int		ft_printf(char *format, ...)
 	parse = format;
 	while (*parse)
 	{
-		printf("WHILE\n");
 		while (*parse && *parse != '%')
 		{
 			ft_putchar_fd(*parse, 1);
 			params->return_size += 1;
 			parse++;
 		}
-		printf("\n\n");
 		if (*parse == '%')
 		{
 			parse++;
-			parsing(parse, params, arg);
-			print_params(params);
+			if (!parsing(parse, params, arg))
+				return (0);
+	//		print_params(params);
 		}
-		printf("\nEND:%s\n", parse);
-		parse++;
 	}
 	return (1);
 }
@@ -226,5 +261,5 @@ int	main()
 
 	a = 20;
 	b = 30;
-	ft_printf("Salut %d!", a, b);
+	ft_printf("Salut %0-d!", a, b);
 }
