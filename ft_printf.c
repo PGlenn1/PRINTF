@@ -23,7 +23,7 @@ void	init_struct(struct x_list *params)
 
 int	valid_format(char *str, struct x_list *params)
 {
-	str++;
+	printf("VALIDFORMAT:|%s|\n", str);
 	if (*str == 'd'
 			|| *str == 'c'
 			|| *str == 's'
@@ -39,16 +39,55 @@ int	valid_format(char *str, struct x_list *params)
 		return (0);
 }
 
-int	p_precision(char *str, struct x_list *params, va_list arg)
+int	p_precision(char *str, struct x_list *params)
 {
-	str++;
+	printf("PRECISION:|%s|\n", str);
+	while (ft_isdigit(*++str));
 	if (valid_format(str, params))
 		return (1);
 	return (0);
 }
 
+int	p_dot(char *str, struct x_list *params, va_list arg)
+{
+	printf("DOT:|%s|\n", str);
+	str++;
+	if (*str == '*')
+	{
+		params->precision = va_arg(arg, int);
+		p_precision(str, params);
+	}
+	else if (ft_isdigit(*str))
+	{
+		params->precision = ft_atoi(str);
+		while (ft_isdigit(*++str));
+		if (!valid_format(str, params))
+			return (0);
+	}
+	else if (valid_format(str, params));
+	else
+		return (0);
+	return (1);
+}
+
+int	p_width(char *str, struct x_list *params, va_list arg)
+{
+	printf("WIDTH:|%s|\n", str);
+	while (ft_isdigit(*++str));
+	if (*str == '.')
+	{
+		params->dot = 1;
+		p_dot(str, params, arg);
+	}
+	else if (valid_format(str, params));
+	else
+		return (0);
+	return (1);
+}
+
 int	p_zero_padding(char *str, struct x_list *params, va_list arg)
 {
+	printf("ZERO_PAD:|%s|\n", str);
 	str++;
 	if (*str == '*')
 	{
@@ -71,38 +110,11 @@ int	p_zero_padding(char *str, struct x_list *params, va_list arg)
 	return (1);
 }
 
-int	p_dot(char *str, struct x_list *params, va_list arg)
-{
-	str++;
-	if (*str == '*')
-	{
-		params->precision = va_arg(arg, int);
-		p_precision(str, params, arg);
-	}
-	else if (ft_isdigit(*str))
-		params->precision = ft_atoi(str);
-	else if (valid_format(str, params));
-	else
-		return (0);
-	return (1);
-}
 
-int	p_width(char *str, struct x_list *params, va_list arg)
-{
-	str++;
-	if (*str == '.')
-	{
-		params->dot = 1;
-		p_dot(str, params, arg);
-	}
-	else if (valid_format(str, params));
-	else
-		return (0);
-	return (1);
-}
 
 int	p_minus(char *str, struct x_list *params, va_list arg)
 {
+	printf("MINUS:|%s|\n", str);
 	str++;
 	if (ft_isdigit(*str))
 	{
@@ -164,19 +176,19 @@ int	parsing(char *str, struct x_list *params, va_list arg)
 
 void print_params(struct x_list *params)
 {
-	printf("%d\n", params->width);
-	printf("%d\n", params->precision);
-	printf("%d\n", params->minus);
-	printf("%d\n", params->dot);
-	printf("%d\n", params->zero_padding);
-	printf("%d\n", params->return_size);
-	printf("%c\n", params->format);
+	printf("\nPRINT PARAMS\n");
+	printf("width:			%d\n", params->width);
+	printf("precision:		%d\n", params->precision);
+	printf("BOOL minus		%d\n", params->minus);
+	printf("BOOL dot:		%d\n", params->dot);
+	printf("BOOL zero_pad:	%d\n", params->zero_padding);
+	printf("return_size:	%d\n", params->return_size);
+	printf("format:			%c\n", params->format);
 }
 
 int		ft_printf(char *format, ...)
 {
 	char *parse;
-	unsigned int n;
 	struct x_list *params;
 	va_list arg;
 
@@ -187,26 +199,32 @@ int		ft_printf(char *format, ...)
 	parse = format;
 	while (*parse)
 	{
-		while (*parse != '%')
+		printf("WHILE\n");
+		while (*parse && *parse != '%')
 		{
-		//	ft_putchar_fd(*parse, 1);
-		//	params->return_size += 1;
+			ft_putchar_fd(*parse, 1);
+			params->return_size += 1;
 			parse++;
 		}
+		printf("\n\n");
 		if (*parse == '%')
 		{
-			parse++;		
-			if (!parsing(parse, params, arg))
-				return (0);
+			parse++;
+			parsing(parse, params, arg);
+			print_params(params);
 		}
+		printf("\nEND:%s\n", parse);
 		parse++;
 	}
+	return (1);
 }
 
 int	main()
 {
-	char a;
+	int a;
+	int b;
 
 	a = 20;
-	ft_printf("Salut %d!", a);
+	b = 30;
+	ft_printf("Salut %d!", a, b);
 }
