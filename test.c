@@ -11,6 +11,6 @@ int		main()
 	b = 70;
 	c = 20;
 	e = 150;
-	printf("test:|%-0.50d\n", e, b);
+	printf("test:|%60.50d\n", e);
 	return (0);
 }
