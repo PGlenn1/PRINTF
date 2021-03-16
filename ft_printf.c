@@ -8,6 +8,8 @@ typedef struct x_list {
 	int	minus;			// BOOL
 	int dot;			// BOOL
 	int	zero_padding;   // BOOL
+	int	d_zero;			// BOOL
+	int d_negative;		// BOOL
 	int	return_size;
 	char format;
 } p_list;
@@ -21,6 +23,8 @@ void print_params(struct x_list *params)
 	printf("BOOL minus		%d\n", params->minus);
 	printf("BOOL dot:		%d\n", params->dot);
 	printf("BOOL zero_pad:	%d\n", params->zero_padding);
+	printf("BOOL d_zero:	%d\n", params->d_zero);
+	printf("BOOL d_negative:	%d\n", params->d_negative);
 	printf("return_size:	%d\n", params->return_size);
 	printf("format:			%c\n", params->format);
 }
@@ -43,6 +47,8 @@ void	init_struct(struct x_list *params)
 	params->minus = 0;			//BOOL
 	params->dot = 0;			//BOOL
 	params->zero_padding = 0;	//BOOL
+	params->d_zero = 0;			//BOOL
+	params->d_negative = 0;		//BOOL
 	params->format = '0';
 }
 
@@ -60,13 +66,28 @@ void	print_wp(char c, int n, int return_size)
 
 int		print_d(int d, char padding, struct x_list *params)
 {
+	if (params->d_negative && params->precision < 0)
+	{
+		ft_putchar_fd('-', 1);
+		params->return_size++;
+	}
 	if ((!params->minus && params->larger_width) || !params->dot)
+	{
+		if (params->d_negative)
+			params->width -= 1;
 		print_wp(padding, params->width, params->return_size);
+	}
+	if (params->d_negative && params->precision > 0)
+	{
+		ft_putchar_fd('-', 1);
+		params->return_size++;
+	}
 	print_wp('0', params->precision, params->return_size);
-	ft_putstr_fd(ft_itoa(d), 1);
+	if (!params->d_zero || params->precision > 0)
+		ft_putnbr_fd(d, 1);
 	if (params->minus && params->larger_width)
 		print_wp(padding, params->width, params->return_size);
-	printf("\n");
+	printf("\n"); ////////
 	return (1);
 }
 
@@ -80,11 +101,26 @@ int		setup_d(struct x_list *params, va_list arg)
 	if (params->zero_padding && !params->dot)
 		padding = '0';
 	d = va_arg(arg, int);
+	if (params->width < 0)
+	{
+		params->minus = 1;
+		params->width *= -1;
+	}
+	if (d == 0)
+		params->d_zero = 1;
+	if (d < 0 && params->precision > 0)
+	{
+		d *= -1;
+		params->d_negative = 1;
+	}
 	len_d = ft_strlen(ft_itoa(d));
 	if (params->width > params->precision && params->dot)
 	{
 		params->larger_width = 1;
-		params->width -= params->precision;
+		if (params->precision > 0)
+			params->width -= params->precision;
+		else
+			params->width -= len_d;
 		params->precision -= len_d;
 	}
 	else if (params->dot)
@@ -301,10 +337,11 @@ int		ft_printf(char *format, ...)
 			parse++;
 			if (!parsing(parse, params, arg))
 				return (0);
-		//	print_params(params);
+//			print_params(params);
 			setup_d(params, arg);
 		}
 	}
+//	printf("return_size: %d\n", params->return_size);
 	return (1);
 }
 
@@ -312,10 +349,13 @@ int	main()
 {
 	int a;
 	int b;
+	int c;
 
-	a = 0;
-	b = 30;
-	char *s = "%.0d\n";
-	ft_printf(s, a);
-	   printf(s, a);
+	a = -30;
+	b = 20;
+	c = -10;
+	char *s = "%-*.*d\n";
+	ft_printf(s, a, b, c);
+//	printf("printf:");
+	   printf(s, a, b, c);
 }
