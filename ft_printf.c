@@ -86,7 +86,11 @@ int		print_d(int d, char padding, struct x_list *params)
 	if (!params->d_zero || params->precision > 0)
 		ft_putnbr_fd(d, 1);
 	if (params->minus && params->larger_width)
+	{
+		if (params->d_negative)
+			params->width -= 1;
 		print_wp(padding, params->width, params->return_size);
+	}
 	printf("\n"); ////////
 	return (1);
 }
@@ -351,9 +355,9 @@ int	main()
 	int b;
 	int c;
 
-	a = -30;
-	b = 20;
-	c = -10;
+	a = -20;
+	b = -0;
+	c = -0;
 	char *s = "%-*.*d\n";
 	ft_printf(s, a, b, c);
 //	printf("printf:");
