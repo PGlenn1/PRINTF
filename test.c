@@ -4,18 +4,13 @@
 
 int		main()
 {
-	char *a;
+	int a;
 	int b;
 	int c;
-	int e;
-	int fd;
 
-	a = "salut";
-	b = 70;
-	c = 20;
-	e = 150;
-	fd = open("prout", O_RDWR);
-	write(fd, "a", fd);
-//	printf("test:|%-10.19d\n", e);
+	a = 5;
+	b = 3;
+	c = -10;
+	printf("test:|%d\n", c);
 	return (0);
 }
