@@ -339,10 +339,10 @@ int	main()
 	int b;
 	int c;
 
-	a = -20;
+	a = 20;
 	b = 30;
-	c = 5;
-	char *s = "%*.d\n";
+	c = -12;
+	char *s = "%0*.*d\n";
 	ft_printf(s, a, b, c);
 //	printf("printf:");
 	   printf(s, a, b, c);
