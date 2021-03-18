@@ -5,13 +5,10 @@ typedef struct x_list {
 	int width;
 	int precision;
 	int	print_precision;
-	int	larger_width;	// BOOL // A SUPRIMER ?
 	int	minus;			// BOOL
 	int dot;			// BOOL
 	int	zero_padding;   // BOOL
-	int	d_zero;			// BOOL
 	int d_negative;		// BOOL
-	int	d_value;
 	int	len_format;		// BOOL
 	int	return_size;
 	char format;
@@ -23,15 +20,11 @@ void print_params(struct x_list *params)
 	printf("width:			%d\n", params->width);
 	printf("precision:		%d\n", params->precision);
 	printf("BOOL print precision:		%d\n", params->print_precision);
-	printf("BOOL larger_width:	%d\n", params->larger_width);
 	printf("BOOL minus		%d\n", params->minus);
 	printf("BOOL dot:		%d\n", params->dot);
 	printf("BOOL zero_pad:	%d\n", params->zero_padding);
-	printf("BOOL d_zero:	%d\n", params->d_zero);
-	printf("BOOL d_negative:	%d\n", params->d_negative);
 	printf("BOOL d_negative:	%d\n", params->d_negative);
 	printf("len_format:			%d\n", params->len_format);
-	printf("d_value:			%d\n", params->d_value); ///////////
 	printf("format:			%c\n", params->format);
 }
 
@@ -40,13 +33,10 @@ void	init_struct(struct x_list *params)
 	params->width = 0;
 	params->precision = 0;
 	params->print_precision = 0; //BOOL
-	params->larger_width = 0;	//BOOL
 	params->minus = 0;			//BOOL
 	params->dot = 0;			//BOOL
 	params->zero_padding = 0;	//BOOL
-	params->d_zero = 0;			//BOOL
 	params->d_negative = 0;		//BOOL
-	params->d_value = 0; 		///////////////////// ???
 	params->len_format = 0;
 	params->format = '0';
 }
@@ -93,9 +83,17 @@ int		print_d(int d, struct x_list *params)
 		params->return_size++;
 	}
 	if (params->print_precision)
+	{
 		print_wp('0', params->precision, params->return_size);
-	if (d != 0 && !params->print_precision)
-		ft_putnbr_fd(d, 1); 
+	}
+
+
+	if (!(!params->width && !params->precision && d == 0)
+		&& !(params->width && !params->precision && d == 0)
+		&& (params->width || params->precision || d != 0))
+		ft_putnbr_fd(d, 1);
+
+
 	if (params->minus)
 		print_wp(' ', params->width, params->return_size);
 	printf("\n"); ////////
@@ -126,8 +124,11 @@ int		setup_d_width(int d, struct x_list *params)
 	}
 	if (params->print_precision)
 		params->width -= params->precision + params->len_format;
-	else
+	else if (params->width && (!(params->width && d == 0)))
 		params->width -= params->len_format;
+	else if ((!params->print_precision && d == 0)
+			&& (!(params->width && !params->precision && d == 0)))
+		params->width -= 1;
 	if (params->d_negative)
 		params->width -= 1;
 	return (1);
@@ -338,10 +339,10 @@ int	main()
 	int b;
 	int c;
 
-	a = -10;
-	b = 10;
-	c = 0;
-	char *s = "%-*.*d\n";
+	a = -20;
+	b = 30;
+	c = 5;
+	char *s = "%*.d\n";
 	ft_printf(s, a, b, c);
 //	printf("printf:");
 	   printf(s, a, b, c);
