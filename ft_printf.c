@@ -32,7 +32,7 @@ void	init_struct(struct x_list *params)
 {
 	params->width = 0;
 	params->precision = 0;
-	params->print_precision = 0; //BOOL
+	params->print_precision = 0;//BOOL
 	params->minus = 0;			//BOOL
 	params->dot = 0;			//BOOL
 	params->zero_padding = 0;	//BOOL
@@ -63,30 +63,27 @@ void	print_wp(char c, int n, int return_size)
 	}
 }
 
-//int		print_width(int width, char padding, struct x_list *params)
-//{
-//	
-//}
-
 int		print_d(int d, struct x_list *params)
 {
-	if (!params->minus)
+	if (params->zero_padding && params->precision)
 	{
-		if (params->zero_padding)
-			print_wp('0', params->width, params->return_size);
-		else
-			print_wp(' ', params->width, params->return_size);
+		if (d < 0)
+		{
+			d *= -1;
+			ft_putchar_fd('-', 1);
+			params->return_size++;
+		}
+		print_wp('0', params->width, params->return_size);
 	}
+	else if (!params->minus)
+		print_wp(' ', params->width, params->return_size);
 	if (params->d_negative)
 	{
 		ft_putchar_fd('-', 1);
 		params->return_size++;
 	}
 	if (params->print_precision)
-	{
 		print_wp('0', params->precision, params->return_size);
-	}
-
 
 	if (!(!params->width && !params->precision && d == 0)
 		&& !(params->width && !params->precision && d == 0)
@@ -237,9 +234,30 @@ int	p_width(char *str, struct x_list *params, va_list arg)
 		params->width = va_arg(arg, int); //////// ??????
 	else if (ft_isdigit(*str))
 		params->width = ft_atoi(str);
+	if (params->width < 0)
+		params->zero_padding = 0;
 	while (ft_isdigit(*++str));
 	if (*str == '.')
 		p_dot(str, params, arg);
+	else if (valid_format(str, params));
+	else
+		return (0);
+	return (1);
+}
+
+int	p_minus(char *str, struct x_list *params, va_list arg)
+{
+//	printf("MINUS:|%s|\n", str);
+	str++;
+	params->minus = 1;
+//	params->zero_padding = 0;
+	if (ft_isdigit(*str) || *str == '*')
+		p_width(str, params, arg);
+	else if (*str == '.')
+	{
+		params->dot = 1;
+		p_dot(str, params, arg);
+	}
 	else if (valid_format(str, params));
 	else
 		return (0);
@@ -253,6 +271,8 @@ int	p_zero_padding(char *str, struct x_list *params, va_list arg)
 	params->zero_padding = 1;
 	if (ft_isdigit(*str) || *str == '*')
 		p_width(str, params, arg);
+	else if (*str == '-')
+		p_minus(str, params, arg);
 	else if (*str == '.')
 		p_dot(str, params, arg);
 	else if (valid_format(str, params));
@@ -261,23 +281,7 @@ int	p_zero_padding(char *str, struct x_list *params, va_list arg)
 	return (1);
 }
 
-int	p_minus(char *str, struct x_list *params, va_list arg)
-{
-//	printf("MINUS:|%s|\n", str);
-	str++;
-	params->minus = 1;
-	if (ft_isdigit(*str) || *str == '*')
-		p_width(str, params, arg);
-	else if (*str == '.')
-	{
-		params->dot = 1;
-		p_dot(str, params, arg);
-	}
-	else if (valid_format(str, params));
-	else
-		return (0);
-	return (1);
-}
+
 
 int	parsing(char *str, struct x_list *params, va_list arg)
 {
@@ -339,10 +343,10 @@ int	main()
 	int b;
 	int c;
 
-	a = 20;
-	b = 30;
-	c = -12;
-	char *s = "%0*.*d\n";
+	a = -30;
+	b = -20;
+	c = -30;
+	char *s = "%0*d\n";
 	ft_printf(s, a, b, c);
 //	printf("printf:");
 	   printf(s, a, b, c);
