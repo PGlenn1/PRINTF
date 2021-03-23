@@ -6,7 +6,7 @@
 /*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:46:01 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/03/23 12:57:57 by gpiriou          ###   ########.fr       */
+/*   Updated: 2021/03/23 17:09:41 by gpiriou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ typedef struct x_list {
 	int	return_size;
 	char format;
 } p_list;
+
+int		ft_printf(char *format, ...);
+void	ft_putchar_count(char c, struct x_list *params);
+void	ft_putnbr_count(int n, struct x_list *params);
 
 #endif

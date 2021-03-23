@@ -6,13 +6,13 @@
 #    By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 12:24:01 by gpiriou           #+#    #+#              #
-#    Updated: 2021/03/23 12:52:57 by gpiriou          ###   ########.fr        #
+#    Updated: 2021/03/23 17:34:27 by gpiriou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= libftprintf.a
 
-SRCS_LIST		= ft_printf.c
+SRCS_LIST		= ft_printf.c ft_putnbr_count.c ft_putchar_count.c\
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 
