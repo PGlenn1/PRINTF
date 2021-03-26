@@ -6,11 +6,11 @@
 /*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 14:40:25 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/03/23 17:26:02 by gpiriou          ###   ########.fr       */
+/*   Updated: 2021/03/26 16:02:05 by gpiriou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "includes/ft_printf.h"
 
 void	ft_putnbr_count(int n, struct x_list *params)
 {

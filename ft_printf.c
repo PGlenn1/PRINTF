@@ -6,11 +6,11 @@
 /*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:53:29 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/03/26 15:56:24 by gpiriou          ###   ########.fr       */
+/*   Updated: 2021/03/26 16:01:41 by gpiriou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "includes/ft_printf.h"
 
 void print_params(struct x_list *params)
 {
