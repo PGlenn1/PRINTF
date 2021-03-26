@@ -2,15 +2,15 @@
 
 int main()
 {
-	int		a = -4;
-	int		b = 0;
+	int		a = 3;
+	int		b = 4;
 	char	c = 'a';
 	int		d = 2147483647;
 	int		e = -2147483648;
-	int		f = 42;
+	int		f = 65;
 	int		g = 25;
 	int		h = 4200;
-	int		i = 8;
+	int		i = 65;
 	int		j = -12;
 	int		k = 123456789;
 	int		l = 0;
@@ -25,20 +25,14 @@ int main()
 	char	*u = "-0";
 
 
-	char *str ="%i, %d, %d, %d, %d, %s, %c, %d, %u, %x, %X\n";
+//	char *str ="%i, %d, %d, %d, %d, %s, %c, %d, %u, %x, %X\n";
 
-	int ret;
-	int ret2;
+	char *str = "Hello %.*c\n";
 
-	ret = ft_printf(str, i, j, k, l, m, n, c, c, j, j, j);
-//	ret2 = printf(str, i, j, k, l, m, n, c, c, j, j, j);
+	printf(str, a, b, f);
+//	ft_printf(str, a, b, f);
+//	printf(str, i, j, k, l, m, n, c, c, j, j, j);
+//	ft_printf(str, i, j, k, l, m, n, c, c, j, j, j);
 
-	if (ret == ret2)
-	{
-		printf("ret = %d\n", ret);
-		printf("CORRECT\n");
-	}
-	else
-		printf("WRONG\n");
 	return (0);
 }

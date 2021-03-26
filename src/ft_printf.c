@@ -6,7 +6,7 @@
 /*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:53:29 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/03/23 17:44:38 by gpiriou          ###   ########.fr       */
+/*   Updated: 2021/03/26 15:48:02 by gpiriou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,18 @@ int		print_d(int d, struct x_list *params)
 		if (d < 0)
 		{
 			d *= -1;
-			ft_putchar_fd('-', 1);
-			params->return_size++;
+			ft_putchar_count('-', params);
 		}
 		print_wp('0', params->width, params);
 	}
 	else if (!params->minus)
 		print_wp(' ', params->width, params);
 	if (params->d_negative)
-	{
-		ft_putchar_fd('-', 1);
-		params->return_size++;
-	}
+		ft_putchar_count('-', params);
 	if (params->print_precision)
 		print_wp('0', params->precision, params);
-
 	if ((params->width || params->precision || d != 0))
 		ft_putnbr_count(d, params);
-
 	if (params->minus)
 		print_wp(' ', params->width, params);
 	return (1);
@@ -112,24 +106,38 @@ int		setup_d_width(int d, struct x_list *params)
 	return (1);
 }
 
+
 int		setup_d(struct x_list *params, va_list arg)
 {
 	int d;
 
 	d = va_arg(arg, int);
-
 	if (params->precision > 0)
 		setup_d_precision(&d, params);
 	else
 		params->len_format = ft_strlen(ft_itoa(d));
 	setup_d_width(d, params);
-	
-//	printf("\nAFTER:");
-//	print_params(params); // params after setup
-
 	print_d(d, params);
 	return (1);
 }
+
+//int	setup_c_width(struct x_list *params)
+//{
+//	
+//}
+//
+//int	setup_c(struct x_list *params, va_list arg)
+//{
+//	char c;
+//	
+//	c = va_arg(arg, char);
+//	if (!ft_isdigit(c))
+//		return (0);
+//	params->len_format = 1;
+//	setup_c_width(params);
+//	print_c(params);
+//
+//}
 
 int		find_format(struct x_list *params, va_list arg)
 {
@@ -139,6 +147,8 @@ int		find_format(struct x_list *params, va_list arg)
 //		setup_c(params, arg);
 //	else if (params->format == 's')
 //		setup_s(params, arg);
+//	else if (params->format == 'u')
+//		setup_u(params, arg);
 //	else if (params->format == 'u')
 //		setup_u(params, arg);
 //	else if (params->format == 'p')
@@ -157,11 +167,12 @@ int		find_format(struct x_list *params, va_list arg)
 	return (1);
 }
 
-int	valid_format(char *str, struct x_list *params)
+int	is_valid_format(char *str, struct x_list *params)
 {
 //	printf("VALIDFORMAT:|%s|\n", str);
-	if (*str == 'd'
-			|| *str == 'c'
+	if (*str == 'c'
+			|| *str == 'd'
+			|| *str == 'i'
 			|| *str == 's'
 			|| *str == 'u'
 			|| *str == 'p'
@@ -172,14 +183,17 @@ int	valid_format(char *str, struct x_list *params)
 		return (1);
 	}
 	else
+	{
+//		printf("NOT VALID FORMAT\n");
 		return (0);
+	}
 }
 
 int	p_precision(char *str, struct x_list *params)
 {
 //	printf("PRECISION:|%s|\n", str);
 	while (ft_isdigit(*++str));
-	if (valid_format(str, params))
+	if (is_valid_format(str, params))
 		return (1);
 	return (0);
 }
@@ -198,10 +212,10 @@ int	p_dot(char *str, struct x_list *params, va_list arg)
 	{
 		params->precision = ft_atoi(str);
 		while (ft_isdigit(*++str));
-		if (!valid_format(str, params))
+		if (!is_valid_format(str, params))
 			return (0);
 	}
-	else if (valid_format(str, params));
+	else if (is_valid_format(str, params));
 	else
 		return (0);
 	return (1);
@@ -219,7 +233,7 @@ int	p_width(char *str, struct x_list *params, va_list arg)
 	while (ft_isdigit(*++str));
 	if (*str == '.')
 		p_dot(str, params, arg);
-	else if (valid_format(str, params));
+	else if (is_valid_format(str, params));
 	else
 		return (0);
 	return (1);
@@ -238,7 +252,7 @@ int	p_minus(char *str, struct x_list *params, va_list arg)
 		params->dot = 1;
 		p_dot(str, params, arg);
 	}
-	else if (valid_format(str, params));
+	else if (is_valid_format(str, params));
 	else
 		return (0);
 	return (1);
@@ -255,7 +269,7 @@ int	p_zero_padding(char *str, struct x_list *params, va_list arg)
 		p_minus(str, params, arg);
 	else if (*str == '.')
 		p_dot(str, params, arg);
-	else if (valid_format(str, params));
+	else if (is_valid_format(str, params));
 	else
 		return (0);	
 	return (1);
@@ -277,13 +291,11 @@ int	parsing(char *str, struct x_list *params, va_list arg)
 		p_width(str, params, arg);
 	else if (*str == '.')
 		p_dot(str, params, arg);
-	else if (valid_format(str, params));
+	else if (is_valid_format(str, params));
 	else
 		return (0);
 	return (1);
 }
-
-
 
 int		ft_printf(char *format, ...)
 {
@@ -310,8 +322,12 @@ int		ft_printf(char *format, ...)
 			if (!parsing(parse, params, arg))
 				return (0);
 //			print_params(params);
-			setup_d(params, arg);
-			parse = ft_strchr(parse, params->format) + 1;
+			else
+			{
+				find_format(params, arg);
+				parse = ft_strchr(parse, params->format) + 1;
+			}
+			//setup_d(params, arg);
 			init_struct(params);
 		}
 	}
