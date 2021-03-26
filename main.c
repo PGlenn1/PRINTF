@@ -27,12 +27,12 @@ int main()
 
 //	char *str ="%i, %d, %d, %d, %d, %s, %c, %d, %u, %x, %X\n";
 
-	char *str = "Hello %.*c\n";
+	char *str = "%***.*d";
 
-	printf(str, a, b, f);
+	printf(str, a, b, f, g);
 //	ft_printf(str, a, b, f);
 //	printf(str, i, j, k, l, m, n, c, c, j, j, j);
 //	ft_printf(str, i, j, k, l, m, n, c, c, j, j, j);
 
 	return (0);
-}
+
