@@ -6,7 +6,7 @@
 #    By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 12:24:01 by gpiriou           #+#    #+#              #
-#    Updated: 2021/03/23 17:34:27 by gpiriou          ###   ########.fr        #
+#    Updated: 2021/03/26 15:56:09 by gpiriou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,4 +49,4 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY: 		all fclean clean re
+.PHONY: 		fclean clean re
