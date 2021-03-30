@@ -16,7 +16,6 @@
 #include <stdarg.h>
 #include "../src/libft_upgraded/libft.h"
 
-
 typedef struct x_list {
 	int width;
 	int precision;

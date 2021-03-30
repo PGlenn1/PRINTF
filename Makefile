@@ -10,13 +10,13 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= libftprintf.a
+NAME			= libftprintf.a
 
-SRCS_LIST		= ft_printf.c ft_putnbr_count.c ft_putchar_count.c\
+SRCS_LIST		= ft_printf.c ft_putnbr_count.c ft_putchar_count.c
 
-SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
+SRCS			= $(addprefix $(FOLDER)/, $(SRCS_LIST))
 
-OBJS			= ${SRCS:.c=.o}
+OBJS			= $(SRCS:.c=.o)
 
 OUT				= a.out
 
@@ -29,24 +29,25 @@ CC				= gcc
 CFLAGS 			= -Wall -Wextra -Werror
 RM				= rm -f
 
-all:			${NAME}
+all:			$(NAME)
 
-$(NAME):		${OBJS}
-				@make -C $(LIBFT)
-				@cp src/libft_upgraded/libft.a ./$(NAME)
-				@ar -rcs ${NAME} ${OBJS}
+$(NAME):		$(OBJS)
+				make -C $(LIBFT)
+				cp src/libft_upgraded/libft.a ./$(NAME)
+				ar -rcs $(NAME) $(OBJS)
 
-%.o: %.c
-				@${CC} ${CFLAGS} -I ${HEADER} -o $@ -c $<
-
+%.o: %.c 
+				$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
+###
+#####
 clean:
-				@${RM} ${OBJS} ${OUT} 
-				@make clean -C $(LIBFT)
+				$(RM) $(OBJS) $(OUT) 
+				make clean -C $(LIBFT)
 
 fclean:			clean
-				@${RM} ${NAME}
-				@make fclean -C $(LIBFT)
+				$(RM) $(NAME)
+				make fclean -C $(LIBFT)
 
 re:				fclean all
 
-.PHONY: 		fclean clean re
+.PHONY: 		all fclean clean re
