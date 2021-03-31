@@ -14,7 +14,7 @@ int main()
 	//int		a = -4;
 	//int		b = 0;
 	//char	c = 'a';
-	int		d = 198;
+	int		d = -12;
 	//int		e = -2147483648;
 	//int		f = 42;
 	//int		g = 25;
@@ -40,19 +40,12 @@ int main()
 //	printf("P\n");printf(str, a, b, c, d, e, f);
 //	printf("F");ft_printf(str, a, b, c, d, e, f);
 
-	/// LIGNE 2740
-	ft_printf("-->|%-3.*d|<--\n", 2, d);
-	ft_printf("-->|%-3.*d|<--\n", 3, d);
-	ft_printf("-->|%-3.1d|<--\n", d);
-	ft_printf("-->|%-3.2d|<--\n", d);
+	/// LIGNE 674
+	ft_printf("-->|%-*.1d|<--\n", 3, d);
+	ft_printf("-->|%-*.1d|<--\n", 4, d);
 	printf("\n");
-	printf("-->|%-3.*d|<--\n", 2, d);
-	printf("-->|%-3.*d|<--\n", 3, d);
-	printf("-->|%-3.1d|<--\n", d);
-	printf("-->|%-3.2d|<--\n", d);
-	//printf(str, i, j, k, l, m, n, c, c, j, j, j);
-	//printf("\n");
-	//ft_printf(str, i, j, k, l, m, n, c, c, j, j, j);
+	printf("-->|%-*.1d|<--\n", 3, d);
+	printf("-->|%-*.1d|<--\n", 4, d);
 
 	return (0);
 }

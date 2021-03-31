@@ -69,7 +69,10 @@ int		print_d(int d, struct x_list *params)
 	if (((params->width && d != 0) || params->precision || d != 0))
 		ft_putnbr_count(d, params);
 	if (params->minus)
+	{
+//		printf("KU\n");
 		print_wp(' ', params->width, params);
+	}
 	return (1);
 }
 
