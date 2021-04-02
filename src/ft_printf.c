@@ -46,7 +46,11 @@ void	print_wp(char c, int n, struct x_list *params)
 
 	i = 0;
 	while (i++ < n)
+	{
+		if (c == '0')
+			params->width -= 1;
 		ft_putchar_count(c, params);
+	}
 }
 
 int		print_d(int d, struct x_list *params)
@@ -57,71 +61,66 @@ int		print_d(int d, struct x_list *params)
 		{
 			d *= -1;
 			ft_putchar_count('-', params);
+			params->width -= 1;
 		}
 		print_wp('0', params->width, params);
 	}
 	else if (!params->minus)
-		print_wp(' ', params->width, params);
+	{
+		if (params->dot && params->precision < 0)
+		{
+			ft_putchar_count(' ', params);
+		}
+		else
+		{
+			//print_params(params);
+			//printf("width before:%d\n", params->width);
+			//printf("len before:%d\n", params->len_format);
+			//printf("precision before:%d\n", params->precision);
+			if (params->print_precision)
+				params->width -=  params->precision - params->len_format;
+			else
+				params->width -= params->len_format;
+			//printf("width after:%d\n", params->width);
+			print_wp(' ', params->width, params);
+		}
+	}
 	if (params->d_negative)
+	{
 		ft_putchar_count('-', params);
+		if (params->print_precision)
+			params->precision += 1;
+	}
 	if (params->print_precision)
-		print_wp('0', params->precision, params);
+		print_wp('0', params->precision - params->len_format, params);
 	if (((params->width && d != 0) || params->precision || d != 0))
 		ft_putnbr_count(d, params);
 	if (params->minus)
-	{
-//		printf("KU\n");
-		print_wp(' ', params->width, params);
-	}
+		print_wp(' ', params->width - params->len_format, params);
 	return (1);
 }
-
-int		setup_d_precision(int *d, struct x_list *params)
-{
-//	printf("SETUP PRECISION\n");
-	if (*d < 0)
-	{
-		params->d_negative = 1;
-		*d *= -1;
-	}
-	params->len_format = ft_strlen(ft_itoa(*d));
-	params->print_precision = 1;
-	params->precision -= params->len_format;
-	return (1);
-}
-
-int		setup_d_width(int d, struct x_list *params)
-{
-//	printf("SETUP WIDTH\n");
-	if (params->width < 0)
-	{
-		params->minus = 1;
-		params->width *= -1;
-	}
-	if (params->print_precision)
-		params->width -= params->precision + params->len_format;
-	else if (params->width && (!(params->width && d == 0)))
-		params->width -= params->len_format;
-	else if ((!params->print_precision && d == 0)
-			&& (!(params->width && !params->precision && d == 0)))
-		params->width -= 1;
-	if (params->d_negative)
-		params->width -= 1;
-	return (1);
-}
-
 
 int		setup_d(struct x_list *params, va_list arg)
 {
 	int d;
 
 	d = va_arg(arg, int);
+	params->len_format = ft_strlen(ft_itoa(d));
 	if (params->precision > 0)
-		setup_d_precision(&d, params);
-	else
-		params->len_format = ft_strlen(ft_itoa(d));
-	setup_d_width(d, params);
-//	printf("WIDTH: %d\n", params->width);
+	{
+		if (d < 0)
+		{
+			params->d_negative = 1;
+			d *= -1;
+		}
+		if (params->dot)
+			params->print_precision = 1;
+	}	
+	if (params->width < 0)
+	{
+		params->minus = 1;
+		params->width *= -1;
+	}
 	print_d(d, params);
 	return (1);
 }
@@ -129,7 +128,7 @@ int		setup_d(struct x_list *params, va_list arg)
 //int	setup_c_width(struct x_list *params)
 //{
 //	
-//}
+//
 //
 //int	setup_c(struct x_list *params, va_list arg)
 //{
@@ -216,7 +215,7 @@ int	p_dot(char *str, struct x_list *params, va_list arg)
 	else if (ft_isdigit(*str))
 	{
 		params->precision = ft_atoi(str);
-		while (ft_isdigit(*++str));
+		while (ft_isdigit(*(++str)));
 		if (!is_valid_format(str, params))
 			return (0);
 	}
@@ -233,6 +232,7 @@ int	p_width(char *str, struct x_list *params, va_list arg)
 	{
 		str++;
 		params->width = va_arg(arg, int);
+//		printf("ALORS:%d\n", params->width);
 	}
 	if (ft_isdigit(*str))
 	{
@@ -351,7 +351,7 @@ int		ft_printf(char *format, ...)
 				find_format(params, arg);
 				parse = ft_strchr(parse, params->format) + 1;
 			}
-		//	print_params(params);
+//			print_params(params);
 			init_struct(params);
 		}
 	}
