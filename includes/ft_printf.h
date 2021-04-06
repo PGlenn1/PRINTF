@@ -6,7 +6,7 @@
 /*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:46:01 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/03/26 15:45:43 by gpiriou          ###   ########.fr       */
+/*   Updated: 2021/04/06 18:00:31 by gpiriou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@
 #include "../src/libft_upgraded/libft.h"
 
 typedef struct x_list {
-	int width;
-	int precision;
-	int	print_precision;
+	int	print_precision;// BOOL
 	int	minus;			// BOOL
 	int dot;			// BOOL
 	int	zero_padding;   // BOOL
 	int d_negative;		// BOOL
-	int	len_format;		// BOOL
+	int	prec_and_len;	// BOOL
+	int	wid_and_len;	// BOOL
+	int width;
+	int precision;
+	int	format_len;		
+	int flag_len;
 	int	return_size;
 	char format;
 } p_list;
