@@ -22,7 +22,7 @@ void print_params(struct x_list *params)
 	printf("BOOL dot:		%d\n", params->dot);
 	printf("BOOL zero_pad:	%d\n", params->zero_padding);
 	printf("BOOL d_negative:	%d\n", params->d_negative);
-	printf("len_format:			%d\n", params->len_format);
+	printf("format_len:			%d\n", params->format_len);
 	printf("return_size:		%d\n", params->return_size);
 	printf("format:			%c\n", params->format);
 }
@@ -36,7 +36,7 @@ void	init_struct(struct x_list *params)
 	params->dot = 0;			//BOOL
 	params->zero_padding = 0;	//BOOL
 	params->d_negative = 0;		//BOOL
-	params->len_format = 0;
+	params->format_len = 0;
 	params->format = '0';
 }
 
@@ -53,51 +53,62 @@ void	print_wp(char c, int n, struct x_list *params)
 	}
 }
 
-int		print_d(int d, struct x_list *params)
+void	print_zeropad(struct x_list *params)
 {
-	if (params->zero_padding && (!params->print_precision && !params->dot))
+	if (params->zero_padding && !params->print_precision)
 	{
-		if (d < 0)
+		if (params->d_negative)
 		{
-			d *= -1;
 			ft_putchar_count('-', params);
-			params->width -= 1;
 		}
-		print_wp('0', params->width, params);
+		print_wp('0', params->width - params->format_len, params);
 	}
-	else if (!params->minus)
-	{
-		if (params->dot && params->precision < 0)
-		{
-			ft_putchar_count(' ', params);
-		}
-		else
-		{
-			//print_params(params);
-			//printf("width before:%d\n", params->width);
-			//printf("len before:%d\n", params->len_format);
-			//printf("precision before:%d\n", params->precision);
-			if (params->print_precision)
-				params->width -=  params->precision - params->len_format;
-			else
-				params->width -= params->len_format;
-			//printf("width after:%d\n", params->width);
-			print_wp(' ', params->width, params);
-		}
-	}
+}
+
+void	print_precision(struct x_list *params)
+{
 	if (params->d_negative)
 	{
 		ft_putchar_count('-', params);
-		if (params->print_precision)
-			params->precision += 1;
 	}
-	if (params->print_precision)
-		print_wp('0', params->precision - params->len_format, params);
-	if (((params->width && d != 0) || params->precision || d != 0))
+	print_wp('0', params->precision - params->format_len, params);
+}
+
+void	print_width(int d, struct x_list *params)
+{
+	print_zeropad(params);
+	if (!params->minus 
+			&& (!params->zero_padding && !params->print_precision)
+			&& params->width > params->precision)
+	{
+		print_wp(' ', params->width - params->format_len, params);	
+	}
+	else if (params->print_precision)
+	{
+		if (!params->minus && params->width > params->precision)
+		{
+			print_wp(' ', params->width - params->precision, params);
+		}
+		print_precision(params);
+	}	
+	//if (params->dot && params->precision == 0 && params->width == 0)
+	//{
+	//	ft_putchar_count('\0', params);
+	//}
+	if (params->dot && d == 0 && params->precision == 0)
+		ft_putchar_count(' ', params);
+	else
+	{
+		if (params->d_negative && !params->zero_padding && !params->print_precision)
+		{
+			//printf("FESSE\n");
+			ft_putchar_count('-', params); // PAREIL que l-71
+		}
 		ft_putnbr_count(d, params);
+	}
+
 	if (params->minus)
-		print_wp(' ', params->width - params->len_format, params);
-	return (1);
+		print_wp(' ', params->width - params->format_len, params);
 }
 
 int		setup_d(struct x_list *params, va_list arg)
@@ -105,23 +116,33 @@ int		setup_d(struct x_list *params, va_list arg)
 	int d;
 
 	d = va_arg(arg, int);
-	params->len_format = ft_strlen(ft_itoa(d));
-	if (params->precision > 0)
+	if (d < 0)
 	{
-		if (d < 0)
-		{
-			params->d_negative = 1;
-			d *= -1;
-		}
-		if (params->dot)
-			params->print_precision = 1;
-	}	
+		d *= -1;
+		params->d_negative = 1;
+	}
+	params->format_len = ft_strlen(ft_itoa(d));
 	if (params->width < 0)
 	{
 		params->minus = 1;
 		params->width *= -1;
 	}
-	print_d(d, params);
+//	if (params->d_negative)
+//		printf("len:%d| preci:%d\n", params->format_len + 1, params->precision);
+//	else
+//		printf("len:%d| preci:%d\n", params->format_len, params->precision);
+	if (params->dot) 
+	{
+		if ((params->d_negative && params->precision >= params->format_len + 1)
+			|| (!params->d_negative && params->precision >= params->format_len))
+
+//		printf("COUILLE\n");
+		params->zero_padding = 0;
+		params->print_precision = 1;
+	}
+	if (params->d_negative)
+		params->width -= 1;
+	print_width(d, params);
 	return (1);
 }
 
@@ -137,7 +158,7 @@ int		setup_d(struct x_list *params, va_list arg)
 //	c = va_arg(arg, char);
 //	if (!ft_isdigit(c))
 //		return (0);
-//	params->len_format = 1;
+//	params->format_len = 1;
 //	setup_c_width(params);
 //	print_c(params);
 //
@@ -206,6 +227,7 @@ int	p_dot(char *str, struct x_list *params, va_list arg)
 {
 //	printf("DOT:|%s|\n", str);
 	params->dot = 1;
+	//params->zero_padding = 0;
 	str++;
 	if (*str == '*')
 	{

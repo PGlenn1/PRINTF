@@ -24,7 +24,8 @@ typedef struct x_list {
 	int dot;			// BOOL
 	int	zero_padding;   // BOOL
 	int d_negative;		// BOOL
-	int	len_format;		// BOOL
+	int	format_len;		
+	int flag_len;
 	int	return_size;
 	char format;
 } p_list;
