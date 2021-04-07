@@ -17,3 +17,4 @@ void	ft_putchar_count(char c, struct x_list *params)
 	write(1, &c, 1);
 	params->return_size++;
 }
+//

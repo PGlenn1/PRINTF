@@ -30,7 +30,6 @@ void	init_struct(struct x_list *params)
 	params->width = 0;
 	params->precision = 0;
 	params->format_len = 0;
-	params->flag_len = 0;
 	params->format = '0';
 }
 
@@ -41,10 +40,11 @@ void	print_wp(char c, int n, struct x_list *params)
 	i = 0;
 	while (i++ < n)
 	{
-//	if (c == '0')
-//		params->width -= 1;
+//		if (c == '0')
+//			params->width -= 1;
 		ft_putchar_count(c, params);
 	}
+	//printf("!!len:%d\n", params->format_len);
 }
 
 int		check_forbidden(struct x_list *params)
@@ -58,19 +58,28 @@ int		check_forbidden(struct x_list *params)
 void	d_print(int d, struct x_list *params)
 {
 //	print_params(params);
+//	printf("\nwidth:%d\n", params->width);
+//	printf("\nwid_len:%d\n", params->wid_and_len);
 //	printf("\nprec_len:%d\n", params->prec_and_len);
 //	printf("print:%d\n", params->print_precision);
-	if (params->zero_padding && params->wid_and_len)
+//	printf("len:%d\n", params->format_len);
+//	printf("wid - len = %d\n", params->width - params->format_len);
+	if (params->zero_padding && params->wid_and_len
+		&& params->precision < 0)
 	{
-//		printf("ZERO PAD\n");
+	//	printf("ZERO PAD\n");
 		if (params->d_negative)
 			ft_putchar_count('-', params);
 		print_wp('0', params->width - params->format_len, params);
 	}
-	else if (!params->minus && params->wid_and_len)
+	else if (!params->minus && params->wid_and_len && params->wid_and_prec)
 	{
-//		printf("WIDTH ESPACE\n");
-		print_wp(' ', params->width - params->format_len, params);
+	//	printf("WIDTH ESPACE\n");
+		//printf("len:%d\n", params->format_len);
+		if (params->print_precision)
+			print_wp(' ', params->width - params->precision, params);
+		else
+			print_wp(' ', params->width - params->format_len, params);
 	}
 	if (params->print_precision && params->prec_and_len)
 	{
@@ -79,6 +88,7 @@ void	d_print(int d, struct x_list *params)
 		{
 			ft_putchar_count('-', params);
 		}
+	//	printf("prec:%d\n", params->precision);
 		print_wp('0', params->precision - params->format_len, params);
 	}
 	if (check_forbidden(params))
@@ -86,14 +96,17 @@ void	d_print(int d, struct x_list *params)
 	//	printf("PUTNBR\n");
 		if (params->d_negative && !params->zero_padding && !params->print_precision)
 		{
-//			printf("FESSE\n");
 			ft_putchar_count('-', params);
 		}
 		ft_putnbr_count(d, params);
 	}
-	if (params->minus && params->wid_and_len
-		&& params->width > params->precision)
-		print_wp(' ', params->width - params->format_len, params);
+	if (params->minus && params->wid_and_len && params->wid_and_prec)
+	{
+		if (params->print_precision)
+			print_wp(' ', params->width - params->precision, params);
+		else
+			print_wp(' ', params->width - params->format_len, params);
+	}
 }
 
 int	d_config_d(struct x_list *params, va_list arg)
@@ -109,8 +122,9 @@ int	d_config_d(struct x_list *params, va_list arg)
 	{
 		d *= -1;
 		params->d_negative = 1;
+		params->precision += 1;
 	}
-	if (params->precision >= params->format_len)
+	if (params->precision > params->format_len)
 	{
 	//	printf("PREC LEN\n");
 		params->prec_and_len = 1;
@@ -120,8 +134,8 @@ int	d_config_d(struct x_list *params, va_list arg)
 	//	printf("WID LEN\n");
 		params->wid_and_len = 1;
 	}
-//	if (params->d_negative)
-//		params->format_len -= 1;
+	if (params->width > params->precision)
+		params->wid_and_prec = 1;
 	return (d);
 }
 
@@ -130,17 +144,17 @@ int		d_setup(struct x_list *params, va_list arg)
 	int d;
 
 	d = d_config_d(params, arg);
-	if (params->dot && params->prec_and_len)
+	if (params->dot && params->precision >= 0)
 	{
-//		printf("DOT\n");
 		params->zero_padding = 0;
-		params->print_precision = 1;
+		if (params->prec_and_len)
+			params->print_precision = 1;
+		else
+			params->print_precision = 0;
 	}
-	if (!params->prec_and_len)
-		params->print_precision = 0;
 	if (!params->wid_and_len)
 	{
-	//	printf("WID\n");
+//		printf("WID\n");
 		params->zero_padding = 0;
 	}
 	d_print(d, params);
@@ -228,7 +242,6 @@ int	p_dot(char *str, struct x_list *params, va_list arg)
 {
 //	printf("DOT:|%s|\n", str);
 	params->dot = 1;
-	params->zero_padding = 0;
 	str++;
 	if (*str == '*')
 	{
@@ -306,7 +319,9 @@ int	p_zero_padding(char *str, struct x_list *params, va_list arg)
 	while (*str == '0')
 		str++;
 	if (!params->minus)
+	{
 		params->zero_padding = 1;
+	}
 	if (*str == '*' || ft_isdigit(*str))
 	{
 		p_width(str, params, arg);
