@@ -39,12 +39,7 @@ void	print_wp(char c, int n, struct x_list *params)
 
 	i = 0;
 	while (i++ < n)
-	{
-//		if (c == '0')
-//			params->width -= 1;
 		ft_putchar_count(c, params);
-	}
-	//printf("!!len:%d\n", params->format_len);
 }
 
 int		check_forbidden(struct x_list *params)
@@ -57,13 +52,6 @@ int		check_forbidden(struct x_list *params)
 
 void	d_print(int d, struct x_list *params)
 {
-//	print_params(params);
-//	printf("\nwidth:%d\n", params->width);
-//	printf("\nwid_len:%d\n", params->wid_and_len);
-//	printf("\nprec_len:%d\n", params->prec_and_len);
-//	printf("print:%d\n", params->print_precision);
-//	printf("len:%d\n", params->format_len);
-//	printf("wid - len = %d\n", params->width - params->format_len);
 	if (params->zero_padding && params->wid_and_len
 		&& params->precision < 0)
 	{
@@ -75,7 +63,6 @@ void	d_print(int d, struct x_list *params)
 	else if (!params->minus && params->wid_and_len && params->wid_and_prec)
 	{
 	//	printf("WIDTH ESPACE\n");
-		//printf("len:%d\n", params->format_len);
 		if (params->print_precision)
 			print_wp(' ', params->width - params->precision, params);
 		else
@@ -88,7 +75,6 @@ void	d_print(int d, struct x_list *params)
 		{
 			ft_putchar_count('-', params);
 		}
-	//	printf("prec:%d\n", params->precision);
 		print_wp('0', params->precision - params->format_len, params);
 	}
 	if (check_forbidden(params))
@@ -122,7 +108,8 @@ int	d_config_d(struct x_list *params, va_list arg)
 	{
 		d *= -1;
 		params->d_negative = 1;
-		params->precision += 1;
+		if (params->precision >= 0)
+			params->precision += 1;
 	}
 	if (params->precision > params->format_len)
 	{

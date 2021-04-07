@@ -24,6 +24,7 @@ typedef struct x_list {
 	int d_negative;		// BOOL
 	int	prec_and_len;	// BOOL
 	int	wid_and_len;	// BOOL
+	int wid_and_prec;	// BOOL
 	int width;
 	int precision;
 	int	format_len;		
