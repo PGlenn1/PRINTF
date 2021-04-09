@@ -36,62 +36,67 @@ void	init_struct(struct x_list *params)
 void	print_wp(char c, int n, struct x_list *params)
 {
 	int i;
+	int to_print;
 
 	i = 0;
+	if (params->print_precision)
+	{
+		to_print = params->	
+	}
 	while (i++ < n)
 		ft_putchar_count(c, params);
 }
 
-int		check_forbidden(struct x_list *params)
+int		specific_cases(int d, struct x_list *params)
 {
-	if (params->format_len)
-	///// A COMPLETER
-		return (1);
-	return (1);
+	if (d == 0 && params->dot)
+	{
+			if (!params->width && !params->precision)
+				write(1, "", 0);
+			else if (!params->precision)
+				ft_putchar_count(' ', params);
+			else
+				ft_putchar_count('0', params);
+			return (1);
+	}
+	return (0);
+
 }
 
 void	d_print(int d, struct x_list *params)
 {
 	if (params->zero_padding && params->wid_and_len
-		&& params->precision < 0)
+		&& (params->precision < 0 || !params->dot))
 	{
-	//	printf("ZERO PAD\n");
 		if (params->d_negative)
 			ft_putchar_count('-', params);
-		print_wp('0', params->width - params->format_len, params);
+		print_wp('0', params->width - params->format_len, params);//// A
 	}
 	else if (!params->minus && params->wid_and_len && params->wid_and_prec)
 	{
-	//	printf("WIDTH ESPACE\n");
 		if (params->print_precision)
-			print_wp(' ', params->width - params->precision, params);
+			print_wp(' ', params->width - params->precision, params);/// B
 		else
-			print_wp(' ', params->width - params->format_len, params);
+			print_wp(' ', params->width - params->format_len, params);/// A
 	}
 	if (params->print_precision && params->prec_and_len)
 	{
-	//	printf("PRINT PRECISION\n");
 		if (params->d_negative)
-		{
 			ft_putchar_count('-', params);
-		}
-		print_wp('0', params->precision - params->format_len, params);
+		print_wp('0', params->precision - params->format_len, params);//// C
 	}
-	if (check_forbidden(params))
+	if (!specific_cases(d, params))
 	{
-	//	printf("PUTNBR\n");
 		if (params->d_negative && !params->zero_padding && !params->print_precision)
-		{
 			ft_putchar_count('-', params);
-		}
 		ft_putnbr_count(d, params);
 	}
 	if (params->minus && params->wid_and_len && params->wid_and_prec)
 	{
 		if (params->print_precision)
-			print_wp(' ', params->width - params->precision, params);
+			print_wp(' ', params->width - params->precision, params);//// B
 		else
-			print_wp(' ', params->width - params->format_len, params);
+			print_wp(' ', params->width - params->format_len, params);//// A
 	}
 }
 
@@ -112,15 +117,9 @@ int	d_config_d(struct x_list *params, va_list arg)
 			params->precision += 1;
 	}
 	if (params->precision > params->format_len)
-	{
-	//	printf("PREC LEN\n");
 		params->prec_and_len = 1;
-	}
 	if (params->width > params->format_len)
-	{
-	//	printf("WID LEN\n");
 		params->wid_and_len = 1;
-	}
 	if (params->width > params->precision)
 		params->wid_and_prec = 1;
 	return (d);
@@ -140,10 +139,7 @@ int		d_setup(struct x_list *params, va_list arg)
 			params->print_precision = 0;
 	}
 	if (!params->wid_and_len)
-	{
-//		printf("WID\n");
 		params->zero_padding = 0;
-	}
 	d_print(d, params);
 	return (1);
 }
@@ -369,7 +365,7 @@ int		ft_printf(char *format, ...)
 			parse++;
 			if (!parsing(parse, params, arg))
 			{
-				printf("ERROR\n");
+//				printf("ERROR\n");
 				return (0);
 			}
 			else
@@ -381,5 +377,6 @@ int		ft_printf(char *format, ...)
 			init_struct(params);
 		}
 	}
+	va_end(arg);
 	return (params->return_size);
 }

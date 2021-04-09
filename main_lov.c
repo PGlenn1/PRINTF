@@ -3,10 +3,16 @@
 int main()
 {
 	int		d = 0;
+	int e = 35;
+	int f = 37;
 
+	
 
-  	ft_printf("-->|%.*d|<--\n", 4, 0, d);
-  	ft_printf("\n");
-  	printf("-->|%.*d|<--\n", 4, 0, d);
+	int a = ft_printf("-->|%.d|<--j'adore manger%.*d cacas\n", d, 4, e);
+	ft_printf("\n");
+	int b =	ft_printf("-->|%.d|<--j'adore manger%.*d cacas\n", d, 4, f);
+	ft_printf("\n");
+	ft_printf("a:%d, b:%d\n", a, b);
+	printf("a:%d, b:%d\n", a, b);
 	return (0);
 }
