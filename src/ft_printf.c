@@ -33,29 +33,43 @@ void	init_struct(struct x_list *params)
 	params->format = '0';
 }
 
-void	print_wp(char c, int n, struct x_list *params)
+void	d_print_flag(char c, char flag, struct x_list *params)
 {
 	int i;
+	int to_print;
 
+	to_print = 0;
+	if (flag == '1')
+	{
+		if (params->print_precision)
+			flag = 'B';
+		else
+			flag = 'A';
+	}
+	if (flag == 'A')
+		to_print = params->width - params->format_len;
+	else if (flag == 'B')
+		to_print = params->width - params->precision;
+	else if (flag == 'C')
+		to_print = params->precision - params->format_len;
 	i = 0;
-	while (i++ < n)
+	while (i++ < to_print)
 		ft_putchar_count(c, params);
 }
 
-int		specific_cases(int d, struct x_list *params)
+int		d_specific_cases(int d, struct x_list *params)
 {
 	if (d == 0 && params->dot)
 	{
-			if (!params->width && !params->precision)
-				write(1, "", 0);
-			else if (!params->precision)
-				ft_putchar_count(' ', params);
-			else
-				ft_putchar_count('0', params);
-			return (1);
+		if (!params->width && !params->precision)
+			write(1, "", 0);
+		else if (!params->precision)
+			ft_putchar_count(' ', params);
+		else
+			ft_putchar_count('0', params);
+		return (1);
 	}
 	return (0);
-
 }
 
 void	d_print(int d, struct x_list *params)
@@ -65,37 +79,27 @@ void	d_print(int d, struct x_list *params)
 	{
 		if (params->d_negative)
 			ft_putchar_count('-', params);
-		print_wp('0', params->width - params->format_len, params);//// A
+		d_print_flag('0', 'A' , params);
 	}
 	else if (!params->minus && params->wid_and_len && params->wid_and_prec)
-	{
-		if (params->print_precision)
-			print_wp(' ', params->width - params->precision, params);/// B
-		else
-			print_wp(' ', params->width - params->format_len, params);/// A
-	}
+		d_print_flag(' ', '1', params);
 	if (params->print_precision && params->prec_and_len)
 	{
 		if (params->d_negative)
 			ft_putchar_count('-', params);
-		print_wp('0', params->precision - params->format_len, params);//// C
+		d_print_flag('0', 'C', params);
 	}
-	if (!specific_cases(d, params))
+	if (!d_specific_cases(d, params))
 	{
 		if (params->d_negative && !params->zero_padding && !params->print_precision)
 			ft_putchar_count('-', params);
 		ft_putnbr_count(d, params);
 	}
 	if (params->minus && params->wid_and_len && params->wid_and_prec)
-	{
-		if (params->print_precision)
-			print_wp(' ', params->width - params->precision, params);//// B
-		else
-			print_wp(' ', params->width - params->format_len, params);//// A
-	}
+		d_print_flag(' ', '1', params);
 }
 
-int	d_config_d(struct x_list *params, va_list arg)
+int	d_config_wp(struct x_list *params, va_list arg)
 {
 	int d;
 	char *temp;
@@ -120,11 +124,11 @@ int	d_config_d(struct x_list *params, va_list arg)
 	return (d);
 }
 
-int		d_setup(struct x_list *params, va_list arg)
+void		d_setup(struct x_list *params, va_list arg)
 {
 	int d;
 
-	d = d_config_d(params, arg);
+	d = d_config_wp(params, arg);
 	if (params->dot && params->precision >= 0)
 	{
 		params->zero_padding = 0;
@@ -136,7 +140,6 @@ int		d_setup(struct x_list *params, va_list arg)
 	if (!params->wid_and_len)
 		params->zero_padding = 0;
 	d_print(d, params);
-	return (1);
 }
 
 //int	setup_c_width(struct x_list *params)
@@ -336,18 +339,8 @@ int	parsing(char *str, struct x_list *params, va_list arg)
 	return (1);
 }
 
-int		ft_printf(char *format, ...)
+int		print_parsing(char *parse, struct x_list *params, va_list arg)
 {
-	char *parse;
-	struct x_list *params;
-	va_list arg;
-
-	va_start(arg, format);
-	params = malloc(sizeof(p_list));
-	init_struct(params);
-	params->return_size = 0;
-	parse = format;
-//	printf("STR:|%s|\n", parse);
 	while (*parse)
 	{
 		while (*parse && *parse != '%')
@@ -359,19 +352,31 @@ int		ft_printf(char *format, ...)
 		{
 			parse++;
 			if (!parsing(parse, params, arg))
-			{
-//				printf("ERROR\n");
 				return (0);
-			}
 			else
 			{
 				find_format(params, arg);
 				parse = ft_strchr(parse, params->format) + 1;
 			}
-//			print_params(params);
 			init_struct(params);
 		}
 	}
+	return (1);
+}
+
+int		ft_printf(char *format, ...)
+{
+	char *parse;
+	struct x_list params;
+	va_list arg;
+
+	va_start(arg, format);
+	params = malloc(sizeof(p_list));
+	init_struct(params);
+	params->return_size = 0;
+	parse = format;
+	if (!print_parsing(parse, params, arg))
+		return (0);
 	va_end(arg);
 	return (params->return_size);
 }
