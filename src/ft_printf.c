@@ -36,13 +36,8 @@ void	init_struct(struct x_list *params)
 void	print_wp(char c, int n, struct x_list *params)
 {
 	int i;
-	int to_print;
 
 	i = 0;
-	if (params->print_precision)
-	{
-		to_print = params->	
-	}
 	while (i++ < n)
 		ft_putchar_count(c, params);
 }
