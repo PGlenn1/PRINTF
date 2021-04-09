@@ -4,10 +4,9 @@ int main()
 {
 	char c = 'a';
 
-//	ft_printf("%4.d", c);
-//	ft_printf("-->|%4.c|--\n", c);
+	ft_printf("-->|%04c|--\n", c);
 	printf("\n");
-	printf("%,c", c);
+	printf("-->|%04c|--\n", c);
 
 	return (0);
 }
