@@ -12,7 +12,7 @@
 
 NAME			= libftprintf.a
 
-SRCS_LIST		= ft_printf.c ft_putnbr_count.c ft_putchar_count.c
+SRCS_LIST		= ft_printf.c ft_putnbr_count.c ft_putchar_count.c d_setup.c
 
 SRCS			= $(addprefix $(FOLDER)/, $(SRCS_LIST))
 
