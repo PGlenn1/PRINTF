@@ -30,7 +30,7 @@ void	init_struct(struct x_list *params)
 	params->width = 0;
 	params->precision = 0;
 	params->format_len = 0;
-	params->format = '0';
+	params->format = 0;
 }
 
 //int	setup_c_width(struct x_list *params)
@@ -53,6 +53,7 @@ void	init_struct(struct x_list *params)
 
 int		find_format(struct x_list *params, va_list arg)
 {
+	printf("FIND FORMAT\n");
 	if (params->format == 'd')
 		d_setup(params, arg);
 //	else if (params->format == 'c')
@@ -75,13 +76,16 @@ int		find_format(struct x_list *params, va_list arg)
 //		params->return_size++;
 //	}
 	else
+	{
+		printf("ERROR\n");
 		return (0);
+	}
 	return (1);
 }
 
 int	is_valid_format(char *str, struct x_list *params)
 {
-//	printf("VALIDFORMAT:|%s|\n", str);
+	printf("ISVALID?:|%s|\n", str);
 	if (*str == 'c'
 			|| *str == 'd'
 			|| *str == 'i'
@@ -91,6 +95,7 @@ int	is_valid_format(char *str, struct x_list *params)
 			|| *str == 'x'
 			|| *str == 'X')
 	{
+		printf("VALID FORMAT:|%s|\n", str);
 		params->format = *str;
 		return (1);
 	}
@@ -103,7 +108,7 @@ int	is_valid_format(char *str, struct x_list *params)
 
 int	p_precision(char *str, struct x_list *params)
 {
-//	printf("PRECISION:|%s|\n", str);
+	printf("PRECISION:|%s|\n", str);
 	while (ft_isdigit(*++str));
 	if (is_valid_format(str, params))
 		return (1);
@@ -112,7 +117,7 @@ int	p_precision(char *str, struct x_list *params)
 
 int	p_dot(char *str, struct x_list *params, va_list arg)
 {
-//	printf("DOT:|%s|\n", str);
+	printf("DOT:|%s|\n", str);
 	params->dot = 1;
 	str++;
 	if (*str == '*')
@@ -135,7 +140,7 @@ int	p_dot(char *str, struct x_list *params, va_list arg)
 
 int	p_width(char *str, struct x_list *params, va_list arg)
 {
-//	printf("WIDTH:|%s|\n", str);
+	printf("WIDTH:|%s|\n", str);
 	while (*str == '*')
 	{
 		str++;
@@ -162,7 +167,7 @@ int	p_width(char *str, struct x_list *params, va_list arg)
 
 int	p_minus(char *str, struct x_list *params, va_list arg)
 {
-//	printf("MINUS:|%s|\n", str);
+	printf("MINUS:|%s|\n", str);
 	while (*str == '-' || *str == '0')
 		str++;
 	if (!params->minus)
@@ -187,7 +192,7 @@ int	p_minus(char *str, struct x_list *params, va_list arg)
 
 int	p_zero_padding(char *str, struct x_list *params, va_list arg)
 {
-//	printf("ZERO_PAD:|%s|\n", str);
+	printf("ZERO_PAD:|%s|\n", str);
 	while (*str == '0')
 		str++;
 	if (!params->minus)
@@ -243,7 +248,10 @@ int		print_parsing(char *parse, struct x_list *params, va_list arg)
 		{
 			parse++;
 			if (!parsing(parse, params, arg))
+			{
+				printf("PARSING ERROR\n");
 				return (0);
+			}
 			else
 			{
 				find_format(params, arg);

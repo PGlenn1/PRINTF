@@ -2,14 +2,12 @@
 
 int main()
 {
-	int d = -12;
+	char c = 'a';
 
-
-	ft_printf("-->|%4.0d|--\n", d);
-	ft_printf("-->|%4.1d|--\n", d);
+//	ft_printf("%4.d", c);
+//	ft_printf("-->|%4.c|--\n", c);
 	printf("\n");
-	printf("-->|%4.0d|--\n", d);
-	printf("-->|%4.1d|--\n", d);
+	printf("%,c", c);
 
 	return (0);
 }
