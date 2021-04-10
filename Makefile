@@ -12,7 +12,7 @@
 
 NAME			= libftprintf.a
 
-SRCS_LIST		= ft_printf.c ft_putnbr_count.c ft_putchar_count.c d_setup.c
+SRCS_LIST		= ft_printf.c ft_putnbr_count.c ft_putchar_count.c d_config.c c_print.c s_config.c
 
 SRCS			= $(addprefix $(FOLDER)/, $(SRCS_LIST))
 
@@ -38,8 +38,6 @@ $(NAME):		$(OBJS)
 
 %.o: %.c 
 				$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
-###
-#####
 clean:
 				$(RM) $(OBJS) $(OUT) 
 				make clean -C $(LIBFT)

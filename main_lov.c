@@ -2,11 +2,9 @@
 
 int main()
 {
-	char c = 'a';
-
-	ft_printf("-->|%04c|--\n", c);
+	char *s = NULL;
+	ft_printf("-->|%-16.*s|<--\n", 4, s);
 	printf("\n");
-	printf("-->|%04c|--\n", c);
-
+	ft_printf("-->|%-16.*s|<--\n", 4, s);
 	return (0);
 }
