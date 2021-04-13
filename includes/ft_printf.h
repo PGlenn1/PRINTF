@@ -38,5 +38,6 @@ void	ft_putnbr_count(int n, struct x_list *params);
 void	c_print(struct x_list *params, va_list arg);
 void	d_config(struct x_list *params, va_list arg);
 void	s_config(struct x_list *params, va_list arg);
+void	p_print(struct x_list *params, va_list arg);
 
 #endif

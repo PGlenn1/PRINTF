@@ -2,9 +2,11 @@
 
 int main()
 {
-	char *s = NULL;
-	ft_printf("-->|%-16.*s|<--\n", 4, s);
+	char *s;
+
+	s = "Salut";
+	ft_printf("-->|%1p|<--\n", s);
 	printf("\n");
-	ft_printf("-->|%-16.*s|<--\n", 4, s);
+	printf("-->|%1p|<--\n", s);
 	return (0);
 }

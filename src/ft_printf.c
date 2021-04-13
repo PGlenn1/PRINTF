@@ -42,10 +42,10 @@ void		find_format(struct x_list *params, va_list arg)
 		c_print(params, arg);
 	else if (params->format == 's')
 		s_config(params, arg);
+	else if (params->format == 'p')
+		p_print(params, arg);
 //	else if (params->format == 'u')
 //		setuparse_u(params, arg);
-//	else if (params->format == 'p')
-//		setuparse_p(params, arg);
 //	else if (params->format == 'x')
 //		setuparse_x(params, arg);
 //	else if (params->format == 'X')
@@ -191,9 +191,13 @@ void		print_parsing(char *parse, struct x_list *params, va_list arg)
 	while (*parse)
 	{
 		while (*parse && *parse != '%')
-			ft_putchar_count(*(parse++), params);
-		if (*(parse++) == '%')
 		{
+			ft_putchar_count(*parse, params);
+			parse++;
+		}
+		if (*parse == '%')
+		{
+			parse++;
 			parsing(parse, params, arg);
 			find_format(params, arg);
 			parse = ft_strchr(parse, params->format) + 1;
