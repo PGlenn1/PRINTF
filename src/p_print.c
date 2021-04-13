@@ -26,7 +26,7 @@ void	p_print(struct x_list *params, va_list arg)
 
 	ptr = p_config(arg, params);
 	i = 0;
-	if (params->dot && !ft_strncmp(ptr, "0", 1))
+	if (!ft_strncmp(ptr, "0x0", 3) && params->dot)
 	{
 		ptr = "0x";
 		params->width += 1;
