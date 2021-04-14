@@ -28,6 +28,7 @@ typedef struct x_list {
 	int width;
 	int precision;
 	int	format_len;		
+	int to_print;
 	int	return_size;
 	char format;
 } p_list;
@@ -39,5 +40,6 @@ void	c_print(struct x_list *params, va_list arg);
 void	d_config(struct x_list *params, va_list arg);
 void	s_config(struct x_list *params, va_list arg);
 void	p_print(struct x_list *params, va_list arg);
+void	xX_print(struct x_list *params, va_list arg);
 
 #endif

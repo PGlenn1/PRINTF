@@ -30,51 +30,8 @@ void	init_struct(struct x_list *params)
 	params->width = 0;
 	params->precision = 0;
 	params->format_len = 0;
+	params->to_print = 0;
 	params->format = 0;
-}
-
-void	xX_config(struct x_list *params, va_list arg)
-{
-	unsigned int n;
-	char *n_to_str;
-
-	n = va_arg(arg, unsigned int);
-	n_to_str = ft_itoa_base_ui("0123456789abcdef", n);
-	params->format_len = ft_strlen(n_to_str);
-	if (params->precision > params->format_len)
-	{
-		params->print_precision = 1;
-		params->zero_padding = 0;
-	}
-	return(n_to_str);
-}
-
-void	xX_print(struct x_list *params, va_list arg)
-{
-	char *str;
-	int i;
-
-	str = xX_config(params, arg);
-	if (params->width > params->format_len)
-	{
-		if (params->zero_padding)
-			ft_putchar_count(' ', params);
-		else
-			ft_putchar_count('0', params);
-	}
-	if (params->print_precision)
-	{
-		i = 0;
-		while (i++ < params->precision - params->format_len)
-			ft_putchar('0', params);
-	}
-	ft_putstr_fd(str, 1);
-	params->return_size += params->format_len;
-	if (params->minus && !params->zero_padding
-		&& params->width > params->precision)
-		{
-			ft_putchar_count(' ', params);
-		}
 }
 
 void		find_format(struct x_list *params, va_list arg)

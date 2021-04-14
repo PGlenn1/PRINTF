@@ -28,10 +28,13 @@ int		d_specific_cases(int d, struct x_list *params)
 {
 	if (d == 0 && params->dot)
 	{
-		if (!params->width && !params->precision)
-			write(1, "", 0);
-		else if (!params->precision)
-			ft_putchar_count(' ', params);
+		if (!params->precision)
+		{
+			if (!params->width)
+				write(1, "", 0);
+			else
+				ft_putchar_count(' ', params);
+		}
 		else
 			ft_putchar_count('0', params);
 		return (1);
