@@ -2,15 +2,16 @@
 
 int main()
 {
-	unsigned int s;
-	int a;
-	int b;
+	char *s;
 
-	s = 198;
-	a = ft_printf("-->|%02.X|<--\n", s); 
+	s = NULL;
+	ft_printf("-->|%-16.p|<--\n", s); 
+	ft_printf("-->|%-16p|<--\n", s); 
+	ft_printf("-->|%-15.p|<--\n", s); 
+	ft_printf("-->|%-15p|<--\n", s); 
 	printf("\n");
-	b = printf("-->|%02.X|<--\n", s); 
-	ft_putnbr_fd(a, 1);
-	write(1, "\n", 1);
-	ft_putnbr_fd(b, 1);
+	printf("-->|%-16.p|<--\n", s); 
+	printf("-->|%-16p|<--\n", s); 
+	printf("-->|%-15.p|<--\n", s); 
+	printf("-->|%-15p|<--\n", s); 
 }

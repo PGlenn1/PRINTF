@@ -3,19 +3,22 @@
 char	*p_config(va_list arg, struct x_list *params)
 {
 	void	*ptr;
-	char	*ptr_to_str;
-	char *address;
 	unsigned long ptr2;
-	int		len_str;
-	
+	char	*ptr_to_str;
+	char 	*address;
 
 	ptr = va_arg(arg, void *);
-    ptr2 = (unsigned long)ptr;
+	ptr2 = (unsigned long)ptr;
 	ptr_to_str = ft_itoa_base_lu("0123456789abcdef", ptr2);
-	len_str = ft_strlen(ptr_to_str);
 	address = ft_strjoin("0x", ptr_to_str);
-	free(ptr_to_str);
-	params->format_len = len_str + 2;
+	if (!ft_strncmp(address, "0x0", ft_strlen(address))
+		&& params->dot && !params->precision)
+	{
+		address = "0x";
+		params->format_len = 2;
+	}
+	else
+		params->format_len = ft_strlen(address);
 	return (address);
 }
 
@@ -26,18 +29,14 @@ void	p_print(struct x_list *params, va_list arg)
 
 	ptr = p_config(arg, params);
 	i = 0;
-	if (!ft_strncmp(ptr, "0x0", 3) && params->dot)
-	{
-		ptr = "0x";
-		params->width += 1;
-	}
 	if (!params->minus)
 	{
 		while (i++ < (params->width - params->format_len))
 			ft_putchar_count(' ', params);
 	}
-	while (*ptr)
-		ft_putchar_count(*(ptr++), params);
+	ft_putstr_fd(ptr, 1);
+	//free(ptr);
+	params->return_size += params->format_len;
 	if (params->minus)
 	{
 		while (i++ < (params->width - params->format_len))

@@ -31,6 +31,7 @@ void	init_struct(struct x_list *params)
 	params->precision = 0;
 	params->format_len = 0;
 	params->to_print = 0;
+	params->str = NULL;
 	params->format = 0;
 }
 
@@ -208,16 +209,16 @@ void		print_parsing(char *parse, struct x_list *params, va_list arg)
 int		ft_printf(char *format, ...)
 {
 	char *parse;
-	// void *ptr;
-	// unsigned long ptr2;
+	void *ptr;
+	unsigned long ptr2;
 	struct x_list *params;
-	va_list	arg;
+	va_list arg;
 
 	va_start(arg, format);
 
-	// ptr = va_arg(arg, void *);
-	// ptr2 = (unsigned long)ptr;
-	//printf("STR: %lu", ptr2);
+	ptr = va_arg(arg, void *);
+	ptr2 = (unsigned long)ptr;
+	printf("STR: %lu", ptr2);
 
 	params = malloc(sizeof(p_list));
 	init_struct(params);
