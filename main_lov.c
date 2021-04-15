@@ -4,10 +4,10 @@ int main()
 {
 	unsigned int u;
 
-	u = -12;
-	ft_printf("-->|%-3.*u|<--\n", 4, u);
+	u = 0;
+	ft_printf("-->|%-4.u|<--\n", u);
 	printf("\n");
-	printf("-->|%-3.*u|<--\n", 4, u);
+	printf("-->|%-4.u|<--\n", u);
 
 	return (0);
 }

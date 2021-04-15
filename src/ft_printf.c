@@ -71,9 +71,7 @@ unsigned int 	u_config(struct x_list *params, va_list arg)
 	unsigned int n;
 
 	n = va_arg(arg, unsigned int);
-	printf("n:%u\n", n);
-	params->format_len = ft_len_n(n);
-	printf("len%u\n", params->format_len);
+	params->format_len = ft_len_n_ui(n);
 	if (params->precision > params->format_len)
 	{
 		params->print_precision = 1;
@@ -102,7 +100,8 @@ void	u_print(struct x_list *params, va_list arg)
 	{
         u_print_flag('0', params->precision - params->format_len, params);
 	}
-	ft_putnbr_count_ui(u, params);
+	if (!u_specific_cases(u, params))
+		ft_putnbr_count_ui(u, params);
 	if (params->minus && params->width > params->precision)
         u_print_flag(' ', params->to_print, params);
 }
