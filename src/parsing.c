@@ -1,45 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/15 16:33:39 by gpiriou           #+#    #+#             */
+/*   Updated: 2021/04/15 16:39:21 by gpiriou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
-
-void	is_valid_format(char *str, struct x_list *params)
-{
-//	printf("ISVALID?:|%s|\n", str);
-	if (*str == 'c'
-		|| *str == 'd'
-		|| *str == 'i'
-		|| *str == 's'
-		|| *str == 'u'
-		|| *str == 'p'
-		|| *str == 'x'
-		|| *str == 'X')
-	{
-//		printf("VALID FORMAT:|%s|\n", str);
-		params->format = *str;
-	}
-	else
-		printf("NOT VALID FORMAT\n");
-}
-
-void	parse_precision(char *str, struct x_list *params)
-{
-//	printf("PRECISION:|%s|\n", str);
-	while (ft_isdigit(*++str));
-	is_valid_format(str, params);
-}
 
 void	parse_dot(char *str, struct x_list *params, va_list arg)
 {
-	//printf("DOT:|%s|\n", str);
 	params->dot = 1;
 	str++;
 	if (*str == '*')
 	{
 		params->precision = va_arg(arg, int);
-		parse_precision(str, params);
+		str++;
+		while (ft_isdigit(*str))
+			str++;
+		is_valid_format(str, params);
 	}
 	else if (ft_isdigit(*str))
 	{
 		params->precision = ft_atoi(str);
-		while (ft_isdigit(*(++str)));
+		str++;
+		while (ft_isdigit(*str))
+			str++;
 		is_valid_format(str, params);
 	}
 	else
@@ -48,7 +38,6 @@ void	parse_dot(char *str, struct x_list *params, va_list arg)
 
 void	parse_width(char *str, struct x_list *params, va_list arg)
 {
-//	printf("WIDTH:|%s|\n", str);
 	while (*str == '*')
 	{
 		str++;
@@ -57,7 +46,9 @@ void	parse_width(char *str, struct x_list *params, va_list arg)
 	if (ft_isdigit(*str))
 	{
 		params->width = ft_atoi(str);
-		while (ft_isdigit(*(++str)));
+		str++;
+		while (ft_isdigit(*str))
+			str++;
 	}
 	if (params->width < 0)
 	{
@@ -67,13 +58,12 @@ void	parse_width(char *str, struct x_list *params, va_list arg)
 	}
 	if (*str == '.')
 		parse_dot(str, params, arg);
-	else 
+	else
 		is_valid_format(str, params);
 }
 
 void	parse_minus(char *str, struct x_list *params, va_list arg)
 {
-//	printf("MINUS:|%s|\n", str);
 	while (*str == '-' || *str == '0')
 		str++;
 	if (!params->minus)
@@ -88,13 +78,12 @@ void	parse_minus(char *str, struct x_list *params, va_list arg)
 		params->dot = 1;
 		parse_dot(str, params, arg);
 	}
-	else 
+	else
 		is_valid_format(str, params);
 }
 
 void	parse_zero_padding(char *str, struct x_list *params, va_list arg)
 {
-//	printf("ZERO_PAD:|%s|\n", str);
 	while (*str == '0')
 		str++;
 	if (!params->minus)
@@ -105,7 +94,7 @@ void	parse_zero_padding(char *str, struct x_list *params, va_list arg)
 		parse_minus(str, params, arg);
 	else if (*str == '.')
 		parse_dot(str, params, arg);
-	else 
+	else
 		is_valid_format(str, params);
 }
 
@@ -123,6 +112,6 @@ void	parsing(char *str, struct x_list *params, va_list arg)
 		parse_width(str, params, arg);
 	else if (*str == '.')
 		parse_dot(str, params, arg);
-	else 
+	else
 		is_valid_format(str, params);
 }

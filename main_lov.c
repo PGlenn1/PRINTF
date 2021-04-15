@@ -2,12 +2,10 @@
 
 int main()
 {
-	unsigned int u;
-
-	u = 0;
-	ft_printf("-->|%-4.u|<--\n", u);
+	char *p = NULL;
+	ft_printf("%-16.p|<--\n", p);
 	printf("\n");
-	printf("-->|%-4.u|<--\n", u);
+	printf("%-16.p|<--\n", p);
 
 	return (0);
 }

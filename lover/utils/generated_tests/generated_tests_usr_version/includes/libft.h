@@ -6,7 +6,7 @@
 /*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:30:41 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/02/17 14:19:28 by gpiriou          ###   ########.fr       */
+/*   Updated: 2021/04/15 17:01:31 by gpiriou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ int				ft_islower(int c);
 int				ft_isprint(int c);
 int				ft_isupper(int c);
 char			*ft_itoa(int n);
+char			*ft_itoa_ui(unsigned int n);
 char			*ft_itoa_base(char *base, int n);
 char			*ft_itoa_base_lu(char *base, unsigned long n);
+char			*ft_itoa_base_ui(char *base, unsigned int n);
 int				ft_len_n_base(char *base, int n);
+int				ft_len_n_base_lu(char *base, unsigned long n);
+int				ft_len_n_base_ui(char *base, unsigned int n);
 int				ft_len_n(int n);
+int				ft_len_n_ui(unsigned int n);
 void			ft_lstadd_back(t_list **alst, t_list *new);
 void			ft_lstadd_front(t_list **alst, t_list *new);
 void			ft_lstclear(t_list **lt, void (*del)(void *));
@@ -85,6 +90,7 @@ char			*ft_strtrim(char *s1, char *set);
 char			*ft_substr(char *s, unsigned int start, size_t len);
 void			ft_swap(char **str1, char **str2);
 int				ft_tolower(int c);
+char			*ft_str_toupper(char *str);
 int				ft_toupper(int c);
 int				ft_valid_base(char *base);
 int				ft_word_count(char *s, char c);

@@ -25,6 +25,7 @@ typedef struct x_list {
 	int	prec_and_len;	// BOOL
 	int	wid_and_len;	// BOOL
 	int wid_and_prec;	// BOOL
+	int	d_min;			// BOOL
 	int width;
 	int precision;
 	int	format_len;		
@@ -41,8 +42,10 @@ void	c_print(struct x_list *params, va_list arg);
 void	d_config(struct x_list *params, va_list arg);
 void	s_config(struct x_list *params, va_list arg);
 void	p_print(struct x_list *params, va_list arg);
-void	xX_print(struct x_list *params, va_list arg);
+void	x_print(struct x_list *params, va_list arg);
+void	u_print(struct x_list *params, va_list arg);
+void	percent_print(struct x_list *params);
 void	parsing(char *str, struct x_list *params, va_list arg);
-
+void	is_valid_format(char *str, struct x_list *params);
 
 #endif

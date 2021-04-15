@@ -1,32 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   u_config.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/15 15:53:04 by gpiriou           #+#    #+#             */
+/*   Updated: 2021/04/15 15:54:31 by gpiriou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
-void	d_print_flag(char c, char flag, struct x_list *params)
+void			u_print_flag(char c, int to_print, struct x_list *params)
 {
 	int i;
-	int to_print;
 
-	to_print = 0;
-	if (flag == '1')
-	{
-		if (params->print_precision)
-			flag = 'B';
-		else
-			flag = 'A';
-	}
-	if (flag == 'A')
-		to_print = params->width - params->format_len;
-	else if (flag == 'B')
-		to_print = params->width - params->precision;
-	else if (flag == 'C')
-		to_print = params->precision - params->format_len;
 	i = 0;
-	while (i++ < to_print)
+	while (i < to_print)
+	{
 		ft_putchar_count(c, params);
+		i++;
+	}
 }
 
-int		d_specific_cases(int d, struct x_list *params)
+int				u_specific_cases(unsigned int u, struct x_list *params)
 {
-	if (d == 0 && params->dot)
+	if (u == 0 && params->dot)
 	{
 		if (!params->precision)
 		{
@@ -42,53 +42,42 @@ int		d_specific_cases(int d, struct x_list *params)
 	return (0);
 }
 
-void	d_print(int d, struct x_list *params)
+unsigned int	u_config(struct x_list *params, va_list arg)
 {
-	if (params->zero_padding && params->wid_and_len
-		&& (params->precision < 0 || !params->dot))
-		d_print_flag('0', 'A' , params);
-	else if (!params->minus && params->wid_and_len && params->wid_and_prec)
-		d_print_flag(' ', '1', params);
-	if (params->print_precision && params->prec_and_len)
-		d_print_flag('0', 'C', params);
-	if (!d_specific_cases(d, params))
-		ft_putnbr_count(d, params);
-	if (params->minus && params->wid_and_len && params->wid_and_prec)
-		d_print_flag(' ', '1', params);
-}
+	unsigned int n;
 
-int	d_config_wp(struct x_list *params, va_list arg)
-{
-	int d;
-	char *temp;
-
-	d = va_arg(arg, int);
-	temp = ft_itoa(d);
-	params->format_len = ft_strlen(temp);
-	free(temp);
+	n = va_arg(arg, unsigned int);
+	params->format_len = ft_len_n_ui(n);
 	if (params->precision > params->format_len)
-		params->prec_and_len = 1;
-	if (params->width > params->format_len)
-		params->wid_and_len = 1;
-	if (params->width > params->precision)
-		params->wid_and_prec = 1;
-	return (d);
+	{
+		params->print_precision = 1;
+		params->to_print = params->width - params->precision;
+	}
+	else
+		params->to_print = params->width - params->format_len;
+	if (params->dot && params->precision >= 0)
+		params->zero_padding = 0;
+	return (n);
 }
 
-void	d_config(struct x_list *params, va_list arg)
+void			u_print(struct x_list *params, va_list arg)
 {
-	int d;
+	unsigned int u;
 
-	d = d_config_wp(params, arg);
-	if (params->dot && params->precision >= 0)
+	u = u_config(params, arg);
+	if (!params->minus && params->width > params->format_len)
 	{
-		params->zero_padding = 0;
-		if (params->prec_and_len)
-			params->print_precision = 1;
+		if (params->zero_padding)
+			u_print_flag('0', params->to_print, params);
 		else
-			params->print_precision = 0;
+			u_print_flag(' ', params->to_print, params);
 	}
-	if (!params->wid_and_len)
-		params->zero_padding = 0;
-	d_print(d, params);
+	if (params->print_precision)
+	{
+		u_print_flag('0', params->precision - params->format_len, params);
+	}
+	if (!u_specific_cases(u, params))
+		ft_putnbr_count_ui(u, params);
+	if (params->minus && params->width > params->precision)
+		u_print_flag(' ', params->to_print, params);
 }

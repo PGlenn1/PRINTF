@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   d_config.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/15 17:13:29 by gpiriou           #+#    #+#             */
+/*   Updated: 2021/04/15 17:13:53 by gpiriou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
 void	d_print_flag(char c, char flag, struct x_list *params)
@@ -26,7 +38,13 @@ void	d_print_flag(char c, char flag, struct x_list *params)
 
 int		d_specific_cases(int d, struct x_list *params)
 {
-	if (d == 0 && params->dot)
+	if (d == -2147483648)
+	{
+		params->d_min = 1;
+		ft_putnbr_count(d, params);
+		return (1);
+	}
+	else if (d == 0 && params->dot)
 	{
 		if (!params->precision)
 		{
@@ -47,21 +65,22 @@ void	d_print(int d, struct x_list *params)
 	if (params->zero_padding && params->wid_and_len
 		&& (params->precision < 0 || !params->dot))
 	{
-		if (params->d_negative)
+		if (params->d_negative && !params->d_min)
 			ft_putchar_count('-', params);
-		d_print_flag('0', 'A' , params);
+		d_print_flag('0', 'A', params);
 	}
 	else if (!params->minus && params->wid_and_len && params->wid_and_prec)
 		d_print_flag(' ', '1', params);
 	if (params->print_precision && params->prec_and_len)
 	{
-		if (params->d_negative)
+		if (params->d_negative && !params->d_min)
 			ft_putchar_count('-', params);
 		d_print_flag('0', 'C', params);
 	}
 	if (!d_specific_cases(d, params))
 	{
-		if (params->d_negative && !params->zero_padding && !params->print_precision)
+		if (params->d_negative && !params->zero_padding
+			&& !params->print_precision && !params->d_min)
 			ft_putchar_count('-', params);
 		ft_putnbr_count(d, params);
 	}
@@ -69,16 +88,16 @@ void	d_print(int d, struct x_list *params)
 		d_print_flag(' ', '1', params);
 }
 
-int	d_config_wp(struct x_list *params, va_list arg)
+int		d_config_wp(struct x_list *params, va_list arg)
 {
-	int d;
-	char *temp;
+	int		d;
+	char	*temp;
 
 	d = va_arg(arg, int);
 	temp = ft_itoa(d);
 	params->format_len = ft_strlen(temp);
 	free(temp);
-	if (d < 0)
+	if (d < 0 && !(d == -2147483648))
 	{
 		d *= -1;
 		params->d_negative = 1;

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   s_config.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/15 16:52:55 by gpiriou           #+#    #+#             */
+/*   Updated: 2021/04/15 16:53:17 by gpiriou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
 void	s_print(char *str, struct x_list *params)
 {
 	int i;
-	
+
 	i = params->width - params->format_len;
 	while (!params->minus && (i-- > 0))
 	{
