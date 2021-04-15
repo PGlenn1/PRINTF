@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_n.c                                         :+:      :+:    :+:   */
+/*   ft_putnbr_count.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/17 10:36:41 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/02/17 10:37:59 by gpiriou          ###   ########.fr       */
+/*   Created: 2021/01/06 14:40:25 by gpiriou           #+#    #+#             */
+/*   Updated: 2021/03/26 16:02:05 by gpiriou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_printf.h"
 
-int		ft_len_n(int n)
+void	ft_putnbr_count_ui(unsigned int n, struct x_list *params)
 {
-	int len_n;
-	int n_parsed;
-
-	len_n = 1;
-	n_parsed = n;
-	while (n_parsed / 10 != 0)
+	if (n >= 0 && n <= 9)
+		ft_putchar_count(n + '0', params);
+	else
 	{
-		n_parsed = n_parsed / 10; 
-		len_n++;
+		ft_putnbr_count_ui(n / 10, params);
+		ft_putchar_count((n % 10) + '0', params);
 	}
-	if (n < 0)
-		len_n++;
-	return (len_n);
 }

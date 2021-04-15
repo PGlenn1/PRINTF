@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-int		ft_len_n(int n)
+unsigned int		ft_len_n_ui(unsigned int n)
 {
-	int len_n;
+	unsigned int len_n;
 	int n_parsed;
 
 	len_n = 1;

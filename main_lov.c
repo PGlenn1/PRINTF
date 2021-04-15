@@ -2,16 +2,12 @@
 
 int main()
 {
-	char *s;
+	unsigned int u;
 
-	s = NULL;
-	ft_printf("-->|%-16.p|<--\n", s); 
-	ft_printf("-->|%-16p|<--\n", s); 
-	ft_printf("-->|%-15.p|<--\n", s); 
-	ft_printf("-->|%-15p|<--\n", s); 
+	u = -12;
+	ft_printf("-->|%-3.*u|<--\n", 4, u);
 	printf("\n");
-	printf("-->|%-16.p|<--\n", s); 
-	printf("-->|%-16p|<--\n", s); 
-	printf("-->|%-15.p|<--\n", s); 
-	printf("-->|%-15p|<--\n", s); 
+	printf("-->|%-3.*u|<--\n", 4, u);
+
+	return (0);
 }

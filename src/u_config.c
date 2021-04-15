@@ -46,25 +46,13 @@ void	d_print(int d, struct x_list *params)
 {
 	if (params->zero_padding && params->wid_and_len
 		&& (params->precision < 0 || !params->dot))
-	{
-		if (params->d_negative)
-			ft_putchar_count('-', params);
 		d_print_flag('0', 'A' , params);
-	}
 	else if (!params->minus && params->wid_and_len && params->wid_and_prec)
 		d_print_flag(' ', '1', params);
 	if (params->print_precision && params->prec_and_len)
-	{
-		if (params->d_negative)
-			ft_putchar_count('-', params);
 		d_print_flag('0', 'C', params);
-	}
 	if (!d_specific_cases(d, params))
-	{
-		if (params->d_negative && !params->zero_padding && !params->print_precision)
-			ft_putchar_count('-', params);
 		ft_putnbr_count(d, params);
-	}
 	if (params->minus && params->wid_and_len && params->wid_and_prec)
 		d_print_flag(' ', '1', params);
 }
@@ -78,13 +66,6 @@ int	d_config_wp(struct x_list *params, va_list arg)
 	temp = ft_itoa(d);
 	params->format_len = ft_strlen(temp);
 	free(temp);
-	if (d < 0)
-	{
-		d *= -1;
-		params->d_negative = 1;
-		if (params->precision >= 0)
-			params->precision += 1;
-	}
 	if (params->precision > params->format_len)
 		params->prec_and_len = 1;
 	if (params->width > params->format_len)
@@ -104,6 +85,8 @@ void	d_config(struct x_list *params, va_list arg)
 		params->zero_padding = 0;
 		if (params->prec_and_len)
 			params->print_precision = 1;
+		else
+			params->print_precision = 0;
 	}
 	if (!params->wid_and_len)
 		params->zero_padding = 0;

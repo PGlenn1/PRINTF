@@ -2,3 +2,4 @@
 *.a
 .DS_store
 *.out
+lover/*

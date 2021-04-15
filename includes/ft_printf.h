@@ -36,10 +36,13 @@ typedef struct x_list {
 int		ft_printf(char *format, ...);
 void	ft_putchar_count(char c, struct x_list *params);
 void	ft_putnbr_count(int n, struct x_list *params);
+void	ft_putnbr_count_ui(unsigned int n, struct x_list *params);
 void	c_print(struct x_list *params, va_list arg);
 void	d_config(struct x_list *params, va_list arg);
 void	s_config(struct x_list *params, va_list arg);
 void	p_print(struct x_list *params, va_list arg);
 void	xX_print(struct x_list *params, va_list arg);
+void	parsing(char *str, struct x_list *params, va_list arg);
+
 
 #endif
