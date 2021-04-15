@@ -42,6 +42,7 @@ void	d_config(struct x_list *params, va_list arg);
 void	s_config(struct x_list *params, va_list arg);
 void	p_print(struct x_list *params, va_list arg);
 void	xX_print(struct x_list *params, va_list arg);
+void	parsing(char *str, struct x_list *params, va_list arg);
 
 
 #endif
