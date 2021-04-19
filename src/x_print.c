@@ -50,7 +50,6 @@ char	*x_config(struct x_list *params, va_list arg)
 	n = va_arg(arg, unsigned int);
 	n_to_str = ft_itoa_base_ui("0123456789abcdef", n);
 	params->format_len = ft_strlen(n_to_str);
-	free(n_to_str);
 	if (params->format == 'X')
 		n_to_str = ft_str_toupper(n_to_str);
 	if (params->precision > params->format_len)

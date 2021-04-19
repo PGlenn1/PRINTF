@@ -46,7 +46,6 @@ void	parse_width(char *str, struct x_list *params, va_list arg)
 	if (ft_isdigit(*str))
 	{
 		params->width = ft_atoi(str);
-		str++;
 		while (ft_isdigit(*str))
 			str++;
 	}

@@ -23,14 +23,9 @@ char	*p_config(va_list arg, struct x_list *params)
 	ptr2 = (unsigned long)ptr;
 	ptr_to_str = ft_itoa_base_lu("0123456789abcdef", ptr2);
 	address = ft_strjoin("0x", ptr_to_str);
-	free(ptr_to_str);
 	if (!ft_strncmp(address, "0x0", ft_strlen(address))
 		&& params->dot && !params->precision)
-	{
-		address = "0x";
-		params->format_len = 2;
-	}
-	else
+		ft_strlcpy(address, "0x", 3);
 		params->format_len = ft_strlen(address);
 	return (address);
 }
