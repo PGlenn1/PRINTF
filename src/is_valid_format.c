@@ -21,6 +21,7 @@ void	is_valid_format(char *str, struct x_list *params)
 		|| *str == 'u'
 		|| *str == 'p'
 		|| *str == 'x'
-		|| *str == 'X')
+		|| *str == 'X'
+		|| *str == '%')
 		params->format = *str;
 }
