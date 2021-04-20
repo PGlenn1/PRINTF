@@ -22,7 +22,26 @@ char	*p_config(va_list arg, struct x_list *params)
 	ptr = va_arg(arg, void *);
 	ptr2 = (unsigned long)ptr;
 	ptr_to_str = ft_itoa_base_lu("0123456789abcdef", ptr2);
+	// if (!ptr2)
+		// ft_putstr_fd("prout\n", 1);
+	// if (!ft_strncmp(ptr_to_str, "0x0", 4))
+	// {
+		// ft_putstr_fd("SCOTT\n", 1);
+		// ft_putstr_fd("ptr to str:", 1);
+		// ft_putstr_fd(ptr_to_str, 1);
+		// write(1, "\n", 1);
+	// }
 	address = ft_strjoin("0x", ptr_to_str);
+	// if (!ft_strncmp(address, "0x0x0", 5) || !ft_strncmp(address, "0x0x", 4))
+	// {
+		// ft_putstr_fd("Glenn\n", 1);
+		// ft_putstr_fd("ptr to str:", 1);
+		// ft_putstr_fd(ptr_to_str, 1);
+		// write(1, "\n", 1);
+		// ft_putstr_fd("address:", 1);
+		// ft_putstr_fd(address, 1);
+		// write(1, "\n", 1);
+	// }
 	free(ptr_to_str);
 	if (!ft_strncmp(address, "0x0", ft_strlen(address))
 		&& params->dot && !params->precision)
@@ -43,8 +62,10 @@ void	p_print(struct x_list *params, va_list arg)
 		while (i++ < (params->width - params->format_len))
 			ft_putchar_count(' ', params);
 	}
+	// if (!ft_strncmp(ptr, "0x0x0", 5) || !ft_strncmp(ptr, "0x0x", 4))
+		// write(1, "Q\n", 2);
 	ft_putstr_fd(ptr, 1);
-	ft_bzero(ptr, ft_strlen(ptr));
+	// ft_bzero(ptr, ft_strlen(ptr));
 	free(ptr);
 	params->return_size += params->format_len;
 	if (params->minus)

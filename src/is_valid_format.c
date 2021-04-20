@@ -28,5 +28,4 @@ int	is_valid_format(char *str, struct x_list *params)
 		return (1);
 	}
 	return (0);
-
 }

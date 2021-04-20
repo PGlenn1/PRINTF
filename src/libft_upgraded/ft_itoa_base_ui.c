@@ -27,6 +27,7 @@ char	*ft_itoa_base_ui(char *base, unsigned int n)
 	if (n == 0)
 	{
 		s[0] = '0';
+		s[1] = '\0';
 		return (s);
 	}
 	i = 0;

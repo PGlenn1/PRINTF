@@ -30,6 +30,7 @@ void	init_struct(struct x_list *params)
 	params->format = 0;
 }
 
+
 void	find_format(struct x_list *params, va_list arg)
 {
 	if (params->format == 'd' || params->format == 'i')
@@ -64,9 +65,8 @@ void	print_parsing(char *parse, struct x_list *params, va_list arg)
 			parsing(parse, params, arg);
 			find_format(params, arg);
 			if (!is_valid_format(&params->format, params))
-				ft_putstr_fd("Format not found", 1);
-			if (params->format && ft_strchr(parse, params->format))
-				parse = ft_strchr(parse, params->format) + 1;
+				ft_putstr_fd("Wrong format\n", 1);
+			parse = ft_strchr(parse, params->format) + 1;
 		}
 	}
 }
