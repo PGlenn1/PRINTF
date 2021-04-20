@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-void	is_valid_format(char *str, struct x_list *params)
+int	is_valid_format(char *str, struct x_list *params)
 {
 	if (*str == 'c'
 		|| *str == 'd'
@@ -23,5 +23,10 @@ void	is_valid_format(char *str, struct x_list *params)
 		|| *str == 'x'
 		|| *str == 'X'
 		|| *str == '%')
+	{
 		params->format = *str;
+		return (1);
+	}
+	return (0);
+
 }

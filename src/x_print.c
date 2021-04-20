@@ -83,6 +83,7 @@ void	x_print(struct x_list *params, va_list arg)
 		ft_putstr_fd(str, 1);
 		params->return_size += params->format_len;
 	}
+	ft_bzero(str, ft_strlen(str));
 	free(str);
 	if (params->minus && params->width > params->precision)
 		x_print_flag(' ', params->to_print, params);

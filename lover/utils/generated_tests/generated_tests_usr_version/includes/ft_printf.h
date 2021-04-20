@@ -46,6 +46,6 @@ void	x_print(struct x_list *params, va_list arg);
 void	u_print(struct x_list *params, va_list arg);
 void	percent_print(struct x_list *params);
 void	parsing(char *str, struct x_list *params, va_list arg);
-void	is_valid_format(char *str, struct x_list *params);
+int	is_valid_format(char *str, struct x_list *params);
 
 #endif

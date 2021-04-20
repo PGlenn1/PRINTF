@@ -10,10 +10,10 @@ int main()
 	
 	while (i < 20)
 	{
-		ft_printf("-->|%-12.p|<--\n", p);
+		ft_printf("-->|%-12d|<--\n");
 		printf("\n");
-		printf("-->|%-12.p|<--\n", p);
-		system("leaks a.out");
+		// ft_printf("-->|%-z#-12alskjd|<--\n");
+		// system("leaks a.out");
 		i++;
 	}
 	

@@ -25,12 +25,12 @@ int main()
 	char	*u = "-0";
 
 	int count;
-	while (i < 40)
+	while (i < 100)
 	{
-		ft_printf("1-->|%5.p, %-4p, %10.15p, %20p\n", &a, &c, n, t);
+		ft_printf("1-->|%5.p, %-4p, %10p, %20p\n", NULL, NULL, NULL, NULL);
 		printf("\n");
-		printf("2-->|%5.p, %-4p, %10.15p, %20p\n", &a, &c, n, t);
-		system("leaks a.out");
+		printf("2-->|%5.p, %-4p, %10p, %20p\n", NULL, NULL, NULL, NULL);
+		// system("leaks a.out");
 		i++;
 	}
 

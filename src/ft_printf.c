@@ -30,23 +30,6 @@ void	init_struct(struct x_list *params)
 	params->format = 0;
 }
 
-
-int	print_precision;// BOOL
-	int	minus;			// BOOL
-	int dot;			// BOOL
-	int	zero_padding;   // BOOL
-	int d_negative;		// BOOL
-	int	prec_and_len;	// BOOL
-	int	wid_and_len;	// BOOL
-	int wid_and_prec;	// BOOL
-	int	d_min;			// BOOL
-	int width;
-	int precision;
-	int	format_len;
-	int to_print;
-	int	return_size;
-	char format;
-
 void	find_format(struct x_list *params, va_list arg)
 {
 	if (params->format == 'd' || params->format == 'i')
@@ -80,7 +63,10 @@ void	print_parsing(char *parse, struct x_list *params, va_list arg)
 			parse++;
 			parsing(parse, params, arg);
 			find_format(params, arg);
-			parse = ft_strchr(parse, params->format) + 1;
+			if (!is_valid_format(&params->format, params))
+				ft_putstr_fd("Format not found", 1);
+			if (params->format && ft_strchr(parse, params->format))
+				parse = ft_strchr(parse, params->format) + 1;
 		}
 	}
 }
