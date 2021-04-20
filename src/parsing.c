@@ -20,28 +20,22 @@ void	parse_dot(char *str, struct x_list *params, va_list arg)
 	{
 		params->precision = va_arg(arg, int);
 		str++;
-		while (ft_isdigit(*str))
-			str++;
-		is_valid_format(str, params);
 	}
 	else if (ft_isdigit(*str))
 	{
 		params->precision = ft_atoi(str);
-		str++;
 		while (ft_isdigit(*str))
 			str++;
-		is_valid_format(str, params);
 	}
-	else
-		is_valid_format(str, params);
+	is_valid_format(str, params);
 }
 
 void	parse_width(char *str, struct x_list *params, va_list arg)
 {
 	while (*str == '*')
 	{
-		str++;
 		params->width = va_arg(arg, int);
+		str++;
 	}
 	if (ft_isdigit(*str))
 	{
@@ -105,9 +99,7 @@ void	parsing(char *str, struct x_list *params, va_list arg)
 		parse_zero_padding(str, params, arg);
 	else if (*str == '-')
 		parse_minus(str, params, arg);
-	else if (ft_isdigit(*str))
-		parse_width(str, params, arg);
-	else if (*str == '*')
+	else if (ft_isdigit(*str) || *str == '*')
 		parse_width(str, params, arg);
 	else if (*str == '.')
 		parse_dot(str, params, arg);
