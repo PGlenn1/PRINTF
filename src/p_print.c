@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-char	*p_config(va_list arg, struct s_struct params)
+char	*p_config(va_list arg, struct s_struct *params)
 {
 	void			*ptr;
 	unsigned long	ptr2;
@@ -25,30 +25,30 @@ char	*p_config(va_list arg, struct s_struct params)
 	address = ft_strjoin("0x", ptr_to_str);
 	free(ptr_to_str);
 	if (!ft_strncmp(address, "0x0", ft_strlen(address))
-		&& params.dot && !params.precision)
+		&& params->dot && !params->precision)
 		ft_strlcpy(address, "0x", 3);
-	params.format_len = ft_strlen(address);
+	params->format_len = ft_strlen(address);
 	return (address);
 }
 
-void	p_print(struct s_struct params, va_list arg)
+void	p_print(struct s_struct *params, va_list arg)
 {
 	char	*ptr;
 	int		i;
 
 	ptr = p_config(arg, params);
 	i = 0;
-	if (!params.minus)
+	if (!params->minus)
 	{
-		while (i++ < (params.width - params.format_len))
+		while (i++ < (params->width - params->format_len))
 			ft_putchar_count(' ', params);
 	}
 	ft_putstr_fd(ptr, 1);
 	free(ptr);
-	params.return_size += params.format_len;
-	if (params.minus)
+	params->return_size += params->format_len;
+	if (params->minus)
 	{
-		while (i++ < (params.width - params.format_len))
+		while (i++ < (params->width - params->format_len))
 			ft_putchar_count(' ', params);
 	}
 }

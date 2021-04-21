@@ -12,8 +12,8 @@
 
 #include "../includes/ft_printf.h"
 
-void	ft_putchar_count(char c, struct s_struct params)
+void	ft_putchar_count(char c, struct s_struct *params)
 {
 	write(1, &c, 1);
-	params.return_size += 1;
+	params->return_size += 1;
 }

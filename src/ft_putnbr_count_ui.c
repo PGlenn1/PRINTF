@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-void	ft_putnbr_count_ui(unsigned int n, struct s_struct params)
+void	ft_putnbr_count_ui(unsigned int n, struct s_struct *params)
 {
 	if (n >= 0 && n <= 9)
 		ft_putchar_count(n + '0', params);

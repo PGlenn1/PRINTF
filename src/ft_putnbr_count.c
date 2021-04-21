@@ -12,12 +12,12 @@
 
 #include "../includes/ft_printf.h"
 
-void	ft_putnbr_count(int n, struct s_struct params)
+void	ft_putnbr_count(int n, struct s_struct *params)
 {
 	if (n == -2147483648)
 	{
 		write(1, "-2147483648", 11);
-		params.return_size += 11;
+		params->return_size += 11;
 	}
 	else
 	{
