@@ -6,13 +6,13 @@
 /*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:47:33 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 15:51:15 by gpiriou          ###   ########.fr       */
+/*   Updated: 2021/04/21 14:59:52 by gpiriou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	percent_print_flag(char c, int to_print, struct x_list *params)
+void	percent_print_flag(char c, int to_print, struct s_struct params)
 {
 	int i;
 
@@ -24,13 +24,13 @@ void	percent_print_flag(char c, int to_print, struct x_list *params)
 	}
 }
 
-int		percent_specific_cases(struct x_list *params)
+int		percent_specific_cases(struct s_struct params)
 {
-	if (params->dot)
+	if (params.dot)
 	{
-		if (!params->precision)
+		if (!params.precision)
 		{
-			if (!params->width)
+			if (!params.width)
 				write(1, "", 0);
 			else
 				ft_putchar_count(' ', params);
@@ -42,18 +42,18 @@ int		percent_specific_cases(struct x_list *params)
 	return (0);
 }
 
-void	percent_print(struct x_list *params)
+void	percent_print(struct s_struct params)
 {
-	params->format_len = 1;
-	params->to_print = params->width - params->format_len;
-	if (!params->minus && params->width > params->format_len)
+	params.format_len = 1;
+	params.to_print = params.width - params.format_len;
+	if (!params.minus && params.width > params.format_len)
 	{
-		if (params->zero_padding)
-			percent_print_flag('0', params->to_print, params);
+		if (params.zero_padding)
+			percent_print_flag('0', params.to_print, params);
 		else
-			percent_print_flag(' ', params->to_print, params);
+			percent_print_flag(' ', params.to_print, params);
 	}
 	ft_putchar_count('%', params);
-	if (params->minus && params->width > params->format_len)
-		percent_print_flag(' ', params->to_print, params);
+	if (params.minus && params.width > params.format_len)
+		percent_print_flag(' ', params.to_print, params);
 }

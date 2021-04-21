@@ -6,18 +6,18 @@
 /*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:42:38 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 15:42:41 by gpiriou          ###   ########.fr       */
+/*   Updated: 2021/04/21 14:55:31 by gpiriou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	ft_putnbr_count(int n, struct x_list *params)
+void	ft_putnbr_count(int n, struct s_struct params)
 {
 	if (n == -2147483648)
 	{
 		write(1, "-2147483648", 11);
-		params->return_size += 11;
+		params.return_size += 11;
 	}
 	else
 	{
