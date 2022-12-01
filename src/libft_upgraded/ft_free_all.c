@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_all.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:36:18 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 11:31:00 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 22:03:03 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_free_all(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])

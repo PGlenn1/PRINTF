@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   s_config.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 16:52:55 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/21 14:57:25 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:17:02 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	s_print(char *str, struct s_struct *params)
 {
-	int i;
+	int	i;
 
 	i = params->width - params->format_len;
 	while (!params->minus && (i-- > 0))
@@ -29,7 +29,7 @@ void	s_print(char *str, struct s_struct *params)
 
 void	s_config(struct s_struct *params, va_list arg)
 {
-	char *str;
+	char	*str;
 
 	str = va_arg(arg, char *);
 	if (!str)

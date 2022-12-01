@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:44:43 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 12:57:18 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 21:58:59 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strndup(char *s1, int n)
 
 	i = 0;
 	len = ft_strlen(s1);
-	if (!(s1_dup = malloc(len * sizeof(char))))
+	s1_dup = malloc(len * sizeof(char));
+	if (!s1_dup)
 		return (NULL);
 	while (s1[i] && i < n)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_count_ui.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:44:48 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/21 14:55:48 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 15:46:03 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr_count_ui(unsigned int n, struct s_struct *params)
 {
-	if (n >= 0 && n <= 9)
+	if (n <= 9)
 		ft_putchar_count(n + '0', params);
 	else
 	{

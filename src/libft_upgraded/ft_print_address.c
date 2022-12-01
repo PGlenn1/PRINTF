@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_address.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 14:01:32 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 13:02:59 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 19:48:36 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	ft_print_address(void *ptr)
 	ptr2 = (unsigned long)ptr;
 	ptr_to_str = ft_itoa_base_lu("0123456789abcdef", ptr2);
 	len_str = ft_strlen(ptr_to_str);
-	if (!(str = (char *)malloc((17) * sizeof(char))))
+	str = (char *)malloc((17) * sizeof(char));
+	if (!str)
 		return ;
 	str = ft_memset(str, '0', 16);
 	str[16] = '\0';

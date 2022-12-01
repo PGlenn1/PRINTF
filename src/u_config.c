@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   u_config.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:11:48 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/21 15:11:50 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 19:23:40 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void			u_print_flag(char c, int to_print, struct s_struct *params)
+void	u_print_flag(char c, int to_print, struct s_struct *params)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < to_print)
@@ -24,7 +24,7 @@ void			u_print_flag(char c, int to_print, struct s_struct *params)
 	}
 }
 
-int				u_specific_cases(unsigned int u, struct s_struct *params)
+int	u_specific_cases(unsigned int u, struct s_struct *params)
 {
 	if (u == 0 && params->dot)
 	{
@@ -44,7 +44,7 @@ int				u_specific_cases(unsigned int u, struct s_struct *params)
 
 unsigned int	u_config(struct s_struct *params, va_list arg)
 {
-	unsigned int n;
+	unsigned int	n;
 
 	n = va_arg(arg, unsigned int);
 	params->format_len = ft_len_n_ui(n);
@@ -60,9 +60,9 @@ unsigned int	u_config(struct s_struct *params, va_list arg)
 	return (n);
 }
 
-void			u_print(struct s_struct *params, va_list arg)
+void	u_print(struct s_struct *params, va_list arg)
 {
-	unsigned int u;
+	unsigned int	u;
 
 	u = u_config(params, arg);
 	if (!params->minus && params->width > params->format_len)

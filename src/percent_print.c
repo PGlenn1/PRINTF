@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   percent_print.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:47:33 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/21 14:59:52 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:12:58 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	percent_print_flag(char c, int to_print, struct s_struct *params)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < to_print)
@@ -24,7 +24,7 @@ void	percent_print_flag(char c, int to_print, struct s_struct *params)
 	}
 }
 
-int		percent_specific_cases(struct s_struct *params)
+int	percent_specific_cases(struct s_struct *params)
 {
 	if (params->dot)
 	{

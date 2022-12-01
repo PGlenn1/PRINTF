@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_len_n.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:36:41 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 11:35:48 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 19:32:54 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_len_n(int n)
+int	ft_len_n(int n)
 {
-	int len_n;
-	int n_parsed;
+	int	len_n;
+	int	n_parsed;
 
 	len_n = 1;
 	n_parsed = n;

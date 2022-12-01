@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_valid_base.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 11:27:10 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 13:03:49 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:31:01 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_valid_base(char *base)
+int	ft_valid_base(char *base)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   x_print.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:57:19 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/21 14:58:01 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 22:03:49 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	x_print_flag(char c, int to_print, struct s_struct *params)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < to_print)
@@ -24,7 +24,7 @@ void	x_print_flag(char c, int to_print, struct s_struct *params)
 	}
 }
 
-int		x_specific_cases(char *str, struct s_struct *params)
+int	x_specific_cases(char *str, struct s_struct *params)
 {
 	if (!ft_strncmp(str, "0", ft_strlen(str)) && params->dot)
 	{
@@ -66,7 +66,7 @@ char	*x_config(struct s_struct *params, va_list arg)
 
 void	x_print(struct s_struct *params, va_list arg)
 {
-	char *str;
+	char	*str;
 
 	str = x_config(params, arg);
 	if (!params->minus && params->width > params->format_len)

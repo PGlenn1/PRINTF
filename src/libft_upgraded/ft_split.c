@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 14:43:31 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 13:01:09 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:42:49 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_word_index(char *s, char c)
+int	ft_word_index(char *s, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] && s[i] != c)
@@ -22,21 +22,19 @@ int		ft_word_index(char *s, char c)
 	return (i);
 }
 
-char	**ft_split(char *s, char c)
+char	**fill_tab(char **tab, char *s, char c)
 {
 	int		i;
 	int		j;
-	char	**tab;
 
 	i = 0;
 	j = 0;
-	if (!s || !(tab = malloc((ft_word_count(s, c) + 1) * sizeof(char *))))
-		return (NULL);
 	while (s[i])
 	{
 		if (s[i] != c)
 		{
-			if (!(tab[j] = ft_strndup(&s[i], ft_word_index(&s[i], c))))
+			tab[j] = ft_strndup(&s[i], ft_word_index(&s[i], c));
+			if (!tab[j])
 			{
 				ft_free_tab(tab);
 				return (NULL);
@@ -48,5 +46,18 @@ char	**ft_split(char *s, char c)
 			i++;
 	}
 	tab[j] = NULL;
+	return (tab);
+}
+
+char	**ft_split(char *s, char c)
+{
+	char	**tab;
+
+	if (!s)
+		return (NULL);
+	tab = malloc((ft_word_count(s, c) + 1) * sizeof(char *));
+	if (!tab)
+		return (NULL);
+	tab = fill_tab(tab, s, c);
 	return (tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_toupper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:02:02 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 17:02:30 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 22:01:17 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 char	*ft_str_toupper(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] >= 'a' && str[i] <= 'z')
+		if (ft_islower(str[i]))
 			str[i] -= 32;
 		i++;
 	}

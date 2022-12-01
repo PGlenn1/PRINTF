@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_ui.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 11:36:19 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 11:36:50 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:30:25 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_to_a_ui(char *s, unsigned int n)
+char	*ft_to_a_ui(char *s, unsigned int n)
 {
 	int		i;
 	int		n_parsed;
@@ -29,12 +29,13 @@ char		*ft_to_a_ui(char *s, unsigned int n)
 	return (s);
 }
 
-char		*ft_itoa_ui(unsigned int n)
+char	*ft_itoa_ui(unsigned int n)
 {
 	char	*s;
 	char	*res;
 
-	if (!(s = malloc((ft_len_n(n) + 1) * sizeof(char))))
+	s = malloc((ft_len_n(n) + 1) * sizeof(char));
+	if (!s)
 		return (NULL);
 	res = ft_to_a_ui(s, n);
 	return (res);

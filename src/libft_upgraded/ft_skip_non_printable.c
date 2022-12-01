@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_skip_non_printable.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:22:51 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/02/17 10:34:45 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:21:01 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_skip_non_printable(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] < 33 || str[i] > 126)

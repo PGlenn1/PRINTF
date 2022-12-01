@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:46:01 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/21 15:59:04 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:15:30 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include "../src/libft_upgraded/libft.h"
 
-typedef struct	s_struct {
+typedef struct s_struct {
 	int		print_precision;
 	int		minus;
 	int		dot;
@@ -34,7 +34,7 @@ typedef struct	s_struct {
 	char	format;
 }				t_params;
 
-int				ft_printf(char *format, ...);
+int				ft_printf(const char *format, ...);
 void			ft_putchar_count(char c, struct s_struct *params);
 void			ft_putnbr_count(int n, struct s_struct *params);
 void			ft_putnbr_count_ui(unsigned int n, struct s_struct *params);

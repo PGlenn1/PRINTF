@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_len_n_ui.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 12:53:43 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 12:55:28 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:17:55 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_len_n_ui(unsigned int n)
+int	ft_len_n_ui(unsigned int n)
 {
-	unsigned int len_n;
-	unsigned int n_parsed;
+	unsigned int	len_n;
+	unsigned int	n_parsed;
 
 	len_n = 1;
 	n_parsed = n;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 11:25:04 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 13:54:51 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:33:42 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_to_a_base(int n, char *s, char *base, int is_negative)
 {
-	int i;
-	int len_n_base;
+	int	i;
+	int	len_n_base;
 
 	i = 0;
 	len_n_base = ft_len_n_base(base, n);
@@ -45,7 +45,8 @@ char	*ft_itoa_base(char *base, int n)
 	if (!ft_valid_base(base))
 		return (NULL);
 	len_n_base = ft_len_n_base(base, n);
-	if (!(res = malloc((len_n_base + 1) * sizeof(char))))
+	res = malloc((len_n_base + 1) * sizeof(char));
+	if (!res)
 		return (NULL);
 	n_parsed = n;
 	is_negative = 0;

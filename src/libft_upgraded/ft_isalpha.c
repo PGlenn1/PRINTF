@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 14:30:56 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/02/17 10:41:47 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 19:50:14 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_isalpha(int c)
+int	ft_isalpha(int c)
 {
 	if (ft_isupper(c) || ft_islower(c))
 		return (1);
-	else
-		return (0);
+	return (0);
 }

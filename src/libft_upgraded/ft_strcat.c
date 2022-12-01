@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 10:36:06 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 13:04:50 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 22:03:28 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strcat(char *s1, char *s2)
 {
-	int i;
-	int s1_len;
+	int	i;
+	int	s1_len;
 
 	i = 0;
 	s1_len = ft_strlen(s1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 14:33:05 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/15 12:48:08 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 19:31:56 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char	*ft_itoa(int n)
 	char	*res;
 
 	is_negative = 0;
-	if (!(s = malloc((ft_len_n(n) + 1) * sizeof(char))))
+	s = malloc((ft_len_n(n) + 1) * sizeof(char));
+	if (!s)
 		return (NULL);
 	if (n < 0)
 	{

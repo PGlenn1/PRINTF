@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gpiriou <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 15:59:30 by gpiriou           #+#    #+#             */
-/*   Updated: 2021/04/21 16:01:20 by gpiriou          ###   ########.fr       */
+/*   Updated: 2022/12/01 18:12:16 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	print_parsing(char *parse, struct s_struct *params, va_list arg)
 	}
 }
 
-int		ft_printf(char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	char			*parse;
 	int				res;
@@ -80,7 +80,7 @@ int		ft_printf(char *format, ...)
 
 	va_start(arg, format);
 	params.return_size = 0;
-	parse = format;
+	parse = (char *)format;
 	print_parsing(parse, &params, arg);
 	va_end(arg);
 	res = params.return_size;
